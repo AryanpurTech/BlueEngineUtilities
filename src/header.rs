@@ -3,6 +3,9 @@
 use keyframe_derive::CanTween;
 
 #[cfg(feature="animation")]
+pub use keyframe::functions as animation_functions;
+
+#[cfg(feature="animation")]
 #[derive(CanTween, Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Point3 {
     pub x: f32,
