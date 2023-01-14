@@ -8,4 +8,4 @@ This crate is a collection of utilities that can aid your development with the [
 
 So far, these functionalities are added to this crate (more to come with time):
 
-* [Animation]
+* [Animation](https://github.com/AryanpurTech/BlueEngineUtilities/blob/master/examples/animation.rs)
