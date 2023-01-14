@@ -1,0 +1,28 @@
+[package]
+name = "blue_engine_utilities"
+version = "0.1.0"
+edition = "2021"
+authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
+description = "Utilities for Blue Engine"
+repository = "https://github.com/AryanpurTech/BlueEngineUtilities"
+keywords = ["gamedev", "utility", "3D", "2D", "animation"]
+categories = ["game-development", "graphics", "rendering"]
+license = "Apache-2.0"
+
+[features]
+default = ["animation"]
+animation = ["dep:keyframe_derive", "dep:keyframe"]
+
+[dependencies]
+blue_engine = { version = "^0.4.22" }
+anyhow = "1.0"
+
+# Animation
+keyframe = { version = "1.1.1", optional = true }
+keyframe_derive = { version = "1.0.0", optional = true }
+
+
+# Animation examples
+[[example]]
+name = "animation"
+path = "examples/animation.rs"
