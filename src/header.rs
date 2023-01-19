@@ -60,3 +60,19 @@ impl Default for AnimationKeyframe {
         }
     }
 }
+
+pub struct FlyCamera {
+    pub camera_right: blue_engine::glm::Vec3,
+    pub yaw: f32,
+    pub pitch: f32,
+    pub last_x: f64,
+    pub last_y: f64,
+
+    pub is_focus: bool,
+    pub camera_speed: f32,
+    pub camera_sensitivity: f32,
+    pub timer: std::time::Instant,
+    pub last_frame: f32,
+
+    pub test_counter: u32,
+}

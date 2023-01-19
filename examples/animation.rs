@@ -30,7 +30,7 @@ fn main() -> anyhow::Result<()> {
         5.0,
         // the frame data. it uses Point3 type so, can use .into to turn from tuple to Point3
         AnimationKeyframe {
-            position: (3f32, 0f32, 0f32).into(),
+            position: (5f32, 0f32, 0f32).into(),
             rotation: (45f32, 45f32, 0f32).into(),
             size: (500f32, 100f32, 100f32).into(),
         },
@@ -39,7 +39,7 @@ fn main() -> anyhow::Result<()> {
     animation.keyframes.push((
         8.0,
         AnimationKeyframe {
-            position: (0f32, 3f32, 0f32).into(),
+            position: (-3f32, -3f32, 0f32).into(),
             rotation: (-45f32, -45f32, 0f32).into(),
             size: (100f32, 50f32, 50f32).into(),
         },

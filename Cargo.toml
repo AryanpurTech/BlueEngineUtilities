@@ -14,7 +14,8 @@ default = ["animation"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 
 [dependencies]
-blue_engine = { version = "^0.4.22" }
+# blue_engine = { version = "^0.4.22" }
+blue_engine = { path = "../Blue Engine" } 
 anyhow = "1.0"
 
 # Animation
@@ -26,3 +27,8 @@ keyframe_derive = { version = "1.0.0", optional = true }
 [[example]]
 name = "animation"
 path = "examples/animation.rs"
+
+# Camera examples
+[[example]]
+name = "fly_camera"
+path = "examples/flycamera.rs"
