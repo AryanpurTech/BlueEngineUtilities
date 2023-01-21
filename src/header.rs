@@ -76,3 +76,11 @@ pub struct FlyCamera {
 
     pub test_counter: u32,
 }
+
+#[derive(Debug, Clone)]
+pub struct LightManager {
+    pub ambient_color: blue_engine::uniform_type::Array4,
+    pub ambient_strength: f32,
+    pub affected_objects: Vec<String>,
+    pub light_objects: std::collections::BTreeMap<String, ([f32; 3], blue_engine::uniform_type::Array4)>,
+}

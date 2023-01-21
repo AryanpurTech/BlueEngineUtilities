@@ -10,8 +10,9 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation"]
+default = ["animation", "gltf"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
+gltf = ["dep:gltf"]
 
 [dependencies]
 # blue_engine = { version = "^0.4.22" }
@@ -21,6 +22,9 @@ anyhow = "1.0"
 # Animation
 keyframe = { version = "1.1.1", optional = true }
 keyframe_derive = { version = "1.0.0", optional = true }
+
+# model loading
+gltf = { version = "1.0", optional = true }
 
 
 # Animation examples
@@ -32,3 +36,8 @@ path = "examples/animation.rs"
 [[example]]
 name = "fly_camera"
 path = "examples/flycamera.rs"
+
+# Light examples
+[[example]]
+name = "basic_light"
+path = "examples/basic_light.rs"
