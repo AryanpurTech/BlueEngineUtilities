@@ -32,6 +32,7 @@ impl crate::LightManager {
         camera: &blue_engine::Camera,
     ) -> anyhow::Result<()> {
         let light_keys: Vec<String> = self.light_objects.keys().map(|x| x.clone()).collect();
+        let shader_content = include_str!("./light_shader.wgsl").to_string();
 
         for i in objects.iter_mut() {
             let i = i.1;
@@ -73,25 +74,22 @@ impl crate::LightManager {
 
                 i.update_uniform_buffer(renderer)?;
 
-                let shader_content = include_str!("./light_shader.wgsl").to_string();
-                i.shader_builder.shader = shader_content;
+                let mut shader_content = shader_content.clone();
 
                 if !self.affected_objects.contains(&i.name) {
-                    let mut changes = Vec::<(&str, &str)>::new();
                     if i.camera_effect {
-                        changes.push(("//@CAMERASTRUCT", r#"
+                        shader_content = shader_content.replace("//@CAMERASTRUCT", r#"
 struct CameraUniforms {
     camera_matrix: mat4x4<f32>,
 };
 @group(1) @binding(0)
-var<uniform> camera_uniform: CameraUniforms;"#));
-                        changes.push(("//@CAMERAOUT", "out.position = camera_uniform.camera_matrix * (transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0));"));
+var<uniform> camera_uniform: CameraUniforms;"#);
+                        shader_content = shader_content.replace("//@CAMERAOUT", "out.position = camera_uniform.camera_matrix * (transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0));");
                     } else {
-                        changes.push(("//@CAMERAOUT","out.position = transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0);"));
+                        shader_content = shader_content.replace("//@CAMERAOUT","out.position = transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0);");
                     }
 
-                    i.shader_builder.parse(changes);
-                    println!("{}", i.shader_builder.shader);
+                    i.shader_builder.shader = shader_content;
                     i.update_shader(renderer)?;
 
                     self.affected_objects.push(i.name.clone());

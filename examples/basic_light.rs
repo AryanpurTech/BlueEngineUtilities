@@ -18,15 +18,15 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("light sphere")
         .unwrap()
-        .set_color(1f32, 0f32, 0f32, 1f32);
+        .set_color(1f32, 0f32, 0f32, 1f32).expect("color couldn't change");
 
     // load the monke
-    load_gltf("monke", "./resources/monkey.glb", &mut engine.renderer, &mut engine.objects);
+    load_gltf("monke", "./resources/monkey.glb", &mut engine.renderer, &mut engine.objects).expect("couldn't load the monke model");
     engine
         .objects
         .get_mut("monke")
         .unwrap()
-        .set_color(0.051f32, 0.533f32, 0.898f32, 1f32);
+        .set_color(0.051f32, 0.533f32, 0.898f32, 1f32).expect("color couldn't change");
 
     let mut light_manager = LightManager::new();
     light_manager.set_object_as_light("light sphere".to_string());
@@ -35,7 +35,7 @@ fn main() -> anyhow::Result<()> {
     let start = std::time::SystemTime::now();
 
     engine.update_loop(move |renderer, _, objects, _, camera, _| {
-        light_manager.update(objects, renderer, camera);
+        light_manager.update(objects, renderer, camera).expect("couldn't update the light manager");
 
         let camx = start.elapsed().unwrap().as_secs_f32().sin() * radius;
             let camy = start.elapsed().unwrap().as_secs_f32().sin() * radius;

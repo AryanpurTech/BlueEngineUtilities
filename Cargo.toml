@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -15,8 +15,8 @@ animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 
 [dependencies]
-# blue_engine = { version = "^0.4.22" }
-blue_engine = { path = "../Blue Engine" } 
+blue_engine = { version = "^0.4.23" }
+#blue_engine = { path = "../Blue Engine" } 
 anyhow = "1.0"
 
 # Animation
