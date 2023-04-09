@@ -15,8 +15,8 @@ animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 
 [dependencies]
-blue_engine = { version = "0.4.26" }
-#blue_engine = { path = "../Blue Engine" }
+#blue_engine = { version = "0.4.26" }
+blue_engine = { path = "../Blue Engine" }
 anyhow = "1.0"
 
 # Animation
@@ -46,3 +46,8 @@ path = "examples/basic_light.rs"
 [[example]]
 name = "model"
 path = "examples/model.rs"
+
+# Raycast examples
+[[example]]
+name = "raycast"
+path = "examples/raycast.rs"

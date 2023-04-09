@@ -1,5 +1,5 @@
-use blue_engine::{Camera, ObjectStorage, winit, glm as nalgebra_glm, InputHelper, wgpu};
 use crate::FlyCamera;
+use blue_engine::{glm as nalgebra_glm, wgpu, winit, Camera, InputHelper, ObjectStorage};
 
 impl FlyCamera {
     pub fn new(camera: &mut Camera) -> Self {
@@ -18,7 +18,7 @@ impl FlyCamera {
             timer: std::time::Instant::now(),
             last_frame: 0f32,
 
-            test_counter: 0
+            test_counter: 0,
         }
     }
 
