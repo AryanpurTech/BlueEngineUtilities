@@ -6,7 +6,7 @@ use blue_engine::{
 use blue_engine_utilities::{animation::Animation, AnimationKeyframe};
 
 fn main() -> anyhow::Result<()> {
-    let mut engine = Engine::new(WindowDescriptor {
+    let mut engine = Engine::new_config(WindowDescriptor {
         width: 1280,
         height: 720,
         title: "Animation test",
@@ -18,7 +18,7 @@ fn main() -> anyhow::Result<()> {
 
     // initialize an animation sequence
     let mut animation = Animation::new("cube");
-    
+
     // first frame, set the current data of the object
     animation
         .keyframes

@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -15,8 +15,8 @@ animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 
 [dependencies]
-blue_engine = { version = "^0.4.23" }
-#blue_engine = { path = "../Blue Engine" } 
+blue_engine = { version = "0.4.26" }
+#blue_engine = { path = "../Blue Engine" }
 anyhow = "1.0"
 
 # Animation
@@ -24,7 +24,7 @@ keyframe = { version = "1.1.1", optional = true }
 keyframe_derive = { version = "1.0.0", optional = true }
 
 # model loading
-gltf = { version = "1.0", optional = true }
+gltf = { version = "1.1.0", optional = true }
 
 
 # Animation examples
@@ -41,3 +41,8 @@ path = "examples/flycamera.rs"
 [[example]]
 name = "basic_light"
 path = "examples/basic_light.rs"
+
+# Model examples
+[[example]]
+name = "model"
+path = "examples/model.rs"

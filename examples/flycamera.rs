@@ -6,7 +6,7 @@ use blue_engine::{
 use blue_engine_utilities::FlyCamera;
 
 fn main() -> anyhow::Result<()> {
-    let mut engine = Engine::new(WindowDescriptor {
+    let mut engine = Engine::new_config(WindowDescriptor {
         width: 1500,
         height: 1000,
         title: "Fly Camera",

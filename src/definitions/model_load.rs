@@ -1,17 +1,26 @@
-use blue_engine::{Renderer, ObjectStorage, ObjectSettings, Vertex, StringBuffer};
+use blue_engine::{ObjectSettings, ObjectStorage, Renderer, StringBuffer, Vertex};
 
-#[cfg(feature="animation")]
+#[cfg(feature = "animation")]
 pub fn load_gltf<'a>(
-    name: impl StringBuffer,
     path: impl StringBuffer,
     renderer: &mut Renderer,
     objects: &mut ObjectStorage,
 ) -> anyhow::Result<()> {
-    let mut verticies = Vec::<Vertex>::new();
-    let mut indicies = Vec::<u16>::new();
+    println!("THE MODEL LOADING FEATURE IS STILL EXPERIMENTAL!");
+    println!("start parsing gltf");
+    let (gltf, buffers, images) = gltf::import(path.as_str())?;
 
-    let (gltf, buffers, _) = gltf::import(path.as_str())?;
+    let texture = renderer.build_texture(
+        "text",
+        blue_engine::TextureData::Bytes(images[0].pixels.clone()),
+        blue_engine::TextureMode::Clamp,
+    );
+
+    println!("gltf parsed, starting disassembly");
     for mesh in gltf.meshes() {
+        let mut verticies = Vec::<Vertex>::new();
+        let mut indicies = Vec::<u16>::new();
+        println!("{:?}", mesh.name());
         for primitive in mesh.primitives() {
             let reader = primitive.reader(|buffer| Some(&buffers[buffer.index()]));
             let mut positions: Vec<[f32; 3]> = Vec::new();
@@ -52,9 +61,16 @@ pub fn load_gltf<'a>(
                 }
             }
         }
+        //break;
+        objects.new_object(
+            mesh.name()
+                .unwrap_or(format!("{}:no_name", path.as_str()).as_str()),
+            verticies,
+            indicies,
+            ObjectSettings::default(),
+            renderer,
+        )?;
     }
-
-    objects.new_object(name, verticies, indicies, ObjectSettings::default(), renderer)?;
 
     Ok(())
 }
