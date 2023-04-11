@@ -1,5 +1,3 @@
-use std::rc::Rc;
-
 use blue_engine::{imports::glm, Camera};
 
 pub struct Raycast {
@@ -68,5 +66,51 @@ impl Raycast {
         let y = -((self.mouse_x_y.1 * 2f32) / window_size.height as f32 - 1f32);
 
         glm::vec2(x, y)
+    }
+
+    pub fn ray_intersects_bounding_box(
+        &self,
+        bounding_box: (glm::Vec3, glm::Vec3),
+        max_length: f32,
+        camera: &Camera,
+    ) -> Option<glm::Vec3> {
+        let (min_corner, max_corner) = bounding_box;
+
+        // calculate the inverse of the ray direction
+        let inv_dir = glm::vec3(
+            1f32 / self.current_ray.x,
+            1f32 / self.current_ray.y,
+            1f32 / self.current_ray.z,
+        );
+
+        let min_corner = min_corner - camera.position;
+        let max_corner = max_corner - camera.position;
+
+        // calculate the minimum and maximum intersection distances for each axis
+        let mut tmin = glm::vec3(
+            min_corner.x * self.current_ray.x,
+            min_corner.y * self.current_ray.y,
+            min_corner.z * self.current_ray.z,
+        );
+        let mut tmax = glm::vec3(
+            max_corner.x * inv_dir.x,
+            max_corner.y * inv_dir.y,
+            max_corner.z * inv_dir.z,
+        );
+
+        //println!("tmin: {:?} | tmax: {:?}", tmin, tmax);
+
+        // Check if the ray intersects the bounding box
+        let t_enter = tmin.max();
+        let t_exit = tmax.min();
+
+        /*println!(
+            "{:?} | t_enter: {} | t_exit: {}",
+            t_enter <= t_exit && t_exit >= 0.0,
+            t_enter,
+            t_exit
+        ); */
+
+        return None;
     }
 }
