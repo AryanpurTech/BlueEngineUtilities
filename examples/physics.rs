@@ -76,9 +76,9 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("ball2")
         .unwrap()
-        .position(0.05f32, 10f32, 0.0f32);
+        .position(0.05f32, 13f32, 0.0f32);
     let rigid_body = RigidBodyBuilder::dynamic()
-        .translation(vector![0.05, 10.0, 0.0])
+        .translation(vector![0.05, 13.0, 0.0])
         .build();
     let collider = ColliderBuilder::ball(1f32).restitution(0.7).build();
     let ball_body_handle = physics.insert_rigid_body("ball2", rigid_body);

@@ -1,6 +1,6 @@
-use blue_engine::{ObjectStorage, RotateAxis, PhysicalSize};
 use crate::AnimationKeyframe;
-use keyframe::{functions::Linear, AnimationSequence, Keyframe, AnimationSequenceError};
+use blue_engine::{ObjectStorage, PhysicalSize, RotateAxis};
+use keyframe::{functions::Linear, AnimationSequence, AnimationSequenceError, Keyframe};
 
 #[derive(Clone)]
 pub struct Animation {
@@ -41,12 +41,17 @@ impl Animation {
                 frame_data.position.y,
                 frame_data.position.z,
             );
-            
-            obj.rotate(frame_data.rotation.x - obj.rotation.0, RotateAxis::X);
-            obj.rotate(frame_data.rotation.y - obj.rotation.1, RotateAxis::Y);
-            obj.rotate(frame_data.rotation.z - obj.rotation.2, RotateAxis::Z);
 
-            obj.resize(frame_data.size.x, frame_data.size.y, frame_data.size.z, window_size);
+            obj.rotate(frame_data.rotation.x - obj.rotation.x, RotateAxis::X);
+            obj.rotate(frame_data.rotation.y - obj.rotation.y, RotateAxis::Y);
+            obj.rotate(frame_data.rotation.z - obj.rotation.z, RotateAxis::Z);
+
+            obj.resize(
+                frame_data.size.x,
+                frame_data.size.y,
+                frame_data.size.z,
+                window_size,
+            );
         }
     }
 }

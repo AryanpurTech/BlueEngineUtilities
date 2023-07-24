@@ -59,9 +59,9 @@ fn main() -> anyhow::Result<()> {
         raycast.ray_intersects_bounding_box(
             (
                 (transformation_matrix
-                    * glm::vec4(obj.position.0, obj.position.1, obj.position.2, 1f32))
+                    * glm::vec4(obj.position.x, obj.position.y, obj.position.z, 1f32))
                 .xyz(),
-                (transformation_matrix * glm::vec4(obj.scale.0, obj.scale.1, obj.scale.2, 1f32))
+                (transformation_matrix * glm::vec4(obj.scale.x, obj.scale.y, obj.scale.z, 1f32))
                     .xyz(),
             ),
             1f32,

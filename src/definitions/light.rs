@@ -39,7 +39,7 @@ impl crate::LightManager {
             if light_keys.contains(&i.name) {
                 self.light_objects.insert(
                     i.name.clone(),
-                    ([i.position.0, i.position.1, i.position.2], i.color),
+                    ([i.position.x, i.position.y, i.position.z], i.color),
                 );
             } else {
                 let result = i.color * self.ambient_color;
@@ -78,12 +78,15 @@ impl crate::LightManager {
 
                 if !self.affected_objects.contains(&i.name) {
                     if i.camera_effect {
-                        shader_content = shader_content.replace("//@CAMERASTRUCT", r#"
+                        shader_content = shader_content.replace(
+                            "//@CAMERASTRUCT",
+                            r#"
 struct CameraUniforms {
     camera_matrix: mat4x4<f32>,
 };
 @group(1) @binding(0)
-var<uniform> camera_uniform: CameraUniforms;"#);
+var<uniform> camera_uniform: CameraUniforms;"#,
+                        );
                         shader_content = shader_content.replace("//@CAMERAOUT", "out.position = camera_uniform.camera_matrix * (transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0));");
                     } else {
                         shader_content = shader_content.replace("//@CAMERAOUT","out.position = transform_uniform.transform_matrix * vec4<f32>(input.position, 1.0);");
