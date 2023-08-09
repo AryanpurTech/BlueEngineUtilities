@@ -10,11 +10,14 @@ pub fn load_gltf<'a>(
     println!("start parsing gltf");
     let (gltf, buffers, images) = gltf::import(path.as_str())?;
 
-    let texture = renderer.build_texture(
-        "text",
-        blue_engine::TextureData::Bytes(images[0].pixels.clone()),
-        blue_engine::TextureMode::Clamp,
-    );
+    let mut texture: Option<blue_engine::Textures> = None;
+    if images.len() > 0 {
+        texture = Some(renderer.build_texture(
+            "text",
+            blue_engine::TextureData::Bytes(images[0].pixels.clone()),
+            blue_engine::TextureMode::Clamp,
+        )?);
+    }
 
     println!("gltf parsed, starting disassembly");
     for mesh in gltf.meshes() {

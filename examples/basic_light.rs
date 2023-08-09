@@ -35,7 +35,7 @@ fn main() -> anyhow::Result<()> {
     .expect("couldn't load the monke model");
     engine
         .objects
-        .get_mut("monke")
+        .get_mut("Suzanne")
         .unwrap()
         .set_color(0.051f32, 0.533f32, 0.898f32, 1f32)
         .expect("color couldn't change");
