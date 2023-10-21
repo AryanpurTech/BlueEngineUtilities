@@ -36,15 +36,15 @@ impl Animation {
         let frame_data = self.animation_sequence.now();
 
         if !self.animation_sequence.finished() {
-            obj.position(
+            obj.set_position(
                 frame_data.position.x,
                 frame_data.position.y,
                 frame_data.position.z,
             );
 
-            obj.rotate(frame_data.rotation.x - obj.rotation.x, RotateAxis::X);
-            obj.rotate(frame_data.rotation.y - obj.rotation.y, RotateAxis::Y);
-            obj.rotate(frame_data.rotation.z - obj.rotation.z, RotateAxis::Z);
+            obj.set_rotatation(frame_data.rotation.x - obj.rotation.x, RotateAxis::X);
+            obj.set_rotatation(frame_data.rotation.y - obj.rotation.y, RotateAxis::Y);
+            obj.set_rotatation(frame_data.rotation.z - obj.rotation.z, RotateAxis::Z);
 
             obj.resize(
                 frame_data.size.x,

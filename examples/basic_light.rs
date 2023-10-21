@@ -58,7 +58,7 @@ fn main() -> anyhow::Result<()> {
         objects
             .get_mut("light sphere")
             .unwrap()
-            .position(camx, camy, camz);
+            .set_position(camx, camy, camz);
     })?;
 
     Ok(())

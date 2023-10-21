@@ -22,17 +22,17 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("cube1")
         .unwrap()
-        .position(10f32, 1f32, -10f32);
+        .set_position(10f32, 1f32, -10f32);
     engine
         .objects
         .get_mut("cube2")
         .unwrap()
-        .position(-5f32, -5f32, -5f32);
+        .set_position(-5f32, -5f32, -5f32);
     engine
         .objects
         .get_mut("cube3")
         .unwrap()
-        .position(0f32, 5f32, -7f32);
+        .set_position(0f32, 5f32, -7f32);
 
     // camera
     let fly_camera = FlyCamera::new(&mut engine.camera);

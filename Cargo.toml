@@ -15,7 +15,7 @@ animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 
 [dependencies]
-blue_engine = { version = "0.4.28" }
+blue_engine = { version = "0.5.0" }
 #blue_engine = { path = "../Blue Engine" }
 anyhow = "1.0"
 
@@ -24,7 +24,7 @@ keyframe = { version = "1.1.1", optional = true }
 keyframe_derive = { version = "1.0.0", optional = true }
 
 # model loading
-gltf = { version = "1.1.0", optional = true }
+gltf = { version = "1.3.0", optional = true }
 
 # physics
 rapier3d = { version = "0.17", features = ["simd-stable"] }

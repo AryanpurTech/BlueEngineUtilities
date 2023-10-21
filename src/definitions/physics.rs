@@ -183,7 +183,9 @@ impl EnginePlugin for Physics {
             if object.is_some() {
                 let position = self.rigid_body_set[*i.1].translation();
 
-                object.unwrap().position(position.x, position.y, position.z);
+                object
+                    .unwrap()
+                    .set_position(position.x, position.y, position.z);
             }
         }
     }

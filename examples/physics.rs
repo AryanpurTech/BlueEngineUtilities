@@ -27,12 +27,12 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("floor")
         .unwrap()
-        .scale(2f32, 0.3f32, 2f32);
+        .set_scale(2f32, 0.3f32, 2f32);
     engine
         .objects
         .get_mut("floor")
         .unwrap()
-        .position(0f32, -1f32, 0f32);
+        .set_position(0f32, -1f32, 0f32);
     let collider = ColliderBuilder::cuboid(2.0, 0.3f32, 2.0)
         .translation([0f32, -1f32, 0f32].into())
         .build();
@@ -53,7 +53,7 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("ball")
         .unwrap()
-        .position(0f32, 10f32, 0f32);
+        .set_position(0f32, 10f32, 0f32);
     let rigid_body = RigidBodyBuilder::dynamic()
         .translation(vector![0.0, 10.0, 0.0])
         .build();
@@ -76,7 +76,7 @@ fn main() -> anyhow::Result<()> {
         .objects
         .get_mut("ball2")
         .unwrap()
-        .position(0.05f32, 13f32, 0.0f32);
+        .set_position(0.05f32, 13f32, 0.0f32);
     let rigid_body = RigidBodyBuilder::dynamic()
         .translation(vector![0.05, 13.0, 0.0])
         .build();
