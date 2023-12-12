@@ -2,17 +2,18 @@ use blue_engine::{ObjectSettings, ObjectStorage, Renderer, StringBuffer, Vertex}
 
 #[cfg(feature = "animation")]
 pub fn load_gltf<'a>(
-    path: impl StringBuffer,
+    name: Option<impl StringBuffer>,
+    path: &std::path::Path,
     renderer: &mut Renderer,
     objects: &mut ObjectStorage,
 ) -> anyhow::Result<()> {
     println!("THE MODEL LOADING FEATURE IS STILL EXPERIMENTAL!");
     println!("start parsing gltf");
-    let (gltf, buffers, images) = gltf::import(path.as_str())?;
+    let (gltf, buffers, images) = gltf::import(&path)?;
 
-    let mut texture: Option<blue_engine::Textures> = None;
+    let mut _texture: Option<blue_engine::Textures> = None;
     if images.len() > 0 {
-        texture = Some(renderer.build_texture(
+        _texture = Some(renderer.build_texture(
             "text",
             blue_engine::TextureData::Bytes(images[0].pixels.clone()),
             blue_engine::TextureMode::Clamp,
@@ -66,8 +67,16 @@ pub fn load_gltf<'a>(
         }
         //break;
         objects.new_object(
-            mesh.name()
-                .unwrap_or(format!("{}:no_name", path.as_str()).as_str()),
+            if name.as_ref().is_some() {
+                let new_name = name.as_ref().unwrap();
+                new_name.as_str()
+            } else {
+                if mesh.name().is_some() {
+                    mesh.name().unwrap()
+                } else {
+                    path.to_str().unwrap()
+                }
+            },
             verticies,
             indicies,
             ObjectSettings::default(),
