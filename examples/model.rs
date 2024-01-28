@@ -11,7 +11,8 @@ fn main() -> anyhow::Result<()> {
 
     // load the monke
     load_gltf(
-        "./resources/ferris3d.glb",
+        Some("ferris"),
+        std::path::Path::new("./resources/ferris3d.glb"),
         &mut engine.renderer,
         &mut engine.objects,
     )

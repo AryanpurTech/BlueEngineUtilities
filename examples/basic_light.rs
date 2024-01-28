@@ -28,7 +28,8 @@ fn main() -> anyhow::Result<()> {
 
     // load the monke
     load_gltf(
-        "./resources/monkey.glb",
+        Some("Suzanne"),
+        std::path::Path::new("./resources/monkey.glb"),
         &mut engine.renderer,
         &mut engine.objects,
     )

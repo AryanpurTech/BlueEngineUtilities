@@ -105,7 +105,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
                 _ => {}
             }
 
-            if input.key_pressed(winit::event::VirtualKeyCode::Escape) {
+            if input.key_pressed(blue_engine::KeyCode::Escape) {
                 window
                     .set_cursor_grab(winit::window::CursorGrabMode::None)
                     .expect("Couldn't release the cursor");
@@ -119,7 +119,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
             }
 
             // W
-            if input.key_held(winit::event::VirtualKeyCode::W) {
+            if input.key_held(blue_engine::KeyCode::KeyW) {
                 let result = (camera.position + (camera.target * camera_speed)).data;
                 let result = result.as_slice();
 
@@ -129,7 +129,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
             }
 
             // S
-            if input.key_held(winit::event::VirtualKeyCode::S) {
+            if input.key_held(blue_engine::KeyCode::KeyS) {
                 let result = (camera.position - (camera.target * camera_speed)).data;
                 let result = result.as_slice();
 
@@ -138,7 +138,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
                     .unwrap();
             }
             // A
-            if input.key_held(winit::event::VirtualKeyCode::A) {
+            if input.key_held(blue_engine::KeyCode::KeyA) {
                 let result = (camera.position - (self.camera_right * camera_speed)).data;
                 let result = result.as_slice();
 
@@ -147,7 +147,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
                     .unwrap();
             }
             // D
-            if input.key_held(winit::event::VirtualKeyCode::D) {
+            if input.key_held(blue_engine::KeyCode::KeyD) {
                 let result = (camera.position + (self.camera_right * camera_speed)).data;
                 let result = result.as_slice();
 

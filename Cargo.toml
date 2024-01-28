@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -10,12 +10,14 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf"]
+default = ["animation", "gltf", "physics", "egui"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
+physics = ["dep:rapier3d"]
+egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
 
 [dependencies]
-blue_engine = { version = "0.5.0" }
+blue_engine = { version = "0.5.2" }
 #blue_engine = { path = "../Blue Engine" }
 anyhow = "1.0"
 
@@ -27,7 +29,12 @@ keyframe_derive = { version = "1.0.0", optional = true }
 gltf = { version = "1.3.0", optional = true }
 
 # physics
-rapier3d = { version = "0.17", features = ["simd-stable"] }
+rapier3d = { version = "0.17", features = ["simd-stable"], optional = true }
+
+# egui
+egui = { version = "0.25.0", optional = true }
+egui-winit = { version = "0.25.0", optional = true }
+egui-wgpu = { version = "0.25.0", optional = true }
 
 # Animation examples
 [[example]]
@@ -58,3 +65,8 @@ path = "examples/raycast.rs"
 [[example]]
 name = "physics"
 path = "examples/physics.rs"
+
+# EGUI examples
+[[example]]
+name = "hello_egui"
+path = "examples/hello_egui.rs"
