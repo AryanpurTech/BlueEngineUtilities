@@ -11,7 +11,7 @@ use blue_engine::{
 use blue_engine_utilities::{physics::Physics, raycast::Raycast, FlyCamera};
 use rapier3d::prelude::*;
 
-fn main() -> anyhow::Result<()> {
+fn main() -> color_eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1500,
         height: 1000,

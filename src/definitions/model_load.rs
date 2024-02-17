@@ -6,7 +6,7 @@ pub fn load_gltf<'a>(
     path: &std::path::Path,
     renderer: &mut Renderer,
     objects: &mut ObjectStorage,
-) -> anyhow::Result<()> {
+) -> color_eyre::Result<()> {
     println!("THE MODEL LOADING FEATURE IS STILL EXPERIMENTAL!");
     println!("start parsing gltf");
     let (gltf, buffers, images) = gltf::import(&path)?;

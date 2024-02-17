@@ -30,7 +30,7 @@ impl crate::LightManager {
         objects: &mut ObjectStorage,
         renderer: &mut blue_engine::Renderer,
         camera: &blue_engine::Camera,
-    ) -> anyhow::Result<()> {
+    ) -> color_eyre::Result<()> {
         let light_keys: Vec<String> = self.light_objects.keys().map(|x| x.clone()).collect();
         let shader_content = include_str!("./light_shader.wgsl").to_string();
 

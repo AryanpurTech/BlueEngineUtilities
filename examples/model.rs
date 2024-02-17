@@ -1,7 +1,7 @@
 use blue_engine::header::{Engine, WindowDescriptor};
 use blue_engine_utilities::{model_load::load_gltf, FlyCamera};
 
-fn main() -> anyhow::Result<()> {
+fn main() -> color_eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1280,
         height: 720,

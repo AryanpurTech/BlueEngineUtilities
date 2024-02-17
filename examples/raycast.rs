@@ -6,7 +6,7 @@ use blue_engine::{
 
 use blue_engine_utilities::{raycast::Raycast, FlyCamera};
 
-fn main() -> anyhow::Result<()> {
+fn main() -> color_eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1000,
         height: 1000,

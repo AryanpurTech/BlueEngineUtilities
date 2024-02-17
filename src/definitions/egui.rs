@@ -9,7 +9,7 @@ use egui::ViewportId;
 pub struct EGUI {
     pub context: egui::Context,
     pub platform: egui_winit::State,
-    pub renderer: egui_wgpu::renderer::Renderer,
+    pub renderer: egui_wgpu::Renderer,
     pub full_output: Option<egui::FullOutput>,
     pub raw_input: Option<egui::RawInput>,
 }
@@ -36,8 +36,7 @@ impl EGUI {
             .get_capabilities(&renderer.adapter)
             .formats[0];
 
-        let renderer =
-            egui_wgpu::renderer::Renderer::new(&renderer.device, format, Some(DEPTH_FORMAT), 1);
+        let renderer = egui_wgpu::Renderer::new(&renderer.device, format, Some(DEPTH_FORMAT), 1);
 
         Self {
             context: Default::default(),
@@ -99,7 +98,7 @@ impl EnginePlugin for EGUI {
 
             let paint_jobs = self.context.tessellate(shapes.clone(), *pixels_per_point);
 
-            let screen_descriptor = egui_wgpu::renderer::ScreenDescriptor {
+            let screen_descriptor = egui_wgpu::ScreenDescriptor {
                 size_in_pixels: [renderer.config.width, renderer.config.height],
                 pixels_per_point: *pixels_per_point,
             };

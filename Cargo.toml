@@ -17,24 +17,24 @@ physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
 
 [dependencies]
-blue_engine = { version = "0.5.2" }
+blue_engine = { version = "0.5.6" }
 #blue_engine = { path = "../Blue Engine" }
-anyhow = "1.0"
+color-eyre = "0.6.2"
 
 # Animation
 keyframe = { version = "1.1.1", optional = true }
 keyframe_derive = { version = "1.0.0", optional = true }
 
 # model loading
-gltf = { version = "1.3.0", optional = true }
+gltf = { version = "1.4.0", optional = true }
 
 # physics
 rapier3d = { version = "0.17", features = ["simd-stable"], optional = true }
 
 # egui
-egui = { version = "0.25.0", optional = true }
-egui-winit = { version = "0.25.0", optional = true }
-egui-wgpu = { version = "0.25.0", optional = true }
+egui = { version = "0.26.2", optional = true }
+egui-winit = { version = "0.26.2", optional = true }
+egui-wgpu = { version = "0.26.2", optional = true }
 
 # Animation examples
 [[example]]
