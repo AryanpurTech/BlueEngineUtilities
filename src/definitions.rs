@@ -10,3 +10,6 @@ pub mod model_load;
 pub mod physics;
 #[cfg(feature = "physics")]
 pub mod raycast;
+
+#[cfg(feature = "iced")]
+pub mod iced;

@@ -10,11 +10,18 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf", "physics", "egui"]
+default = ["animation", "gltf", "physics", "egui", "iced"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
+iced = [
+    "dep:iced_wgpu",
+    "dep:iced_winit",
+    "dep:iced_graphics",
+    "dep:iced_widget",
+    "dep:iced_runtime",
+]
 
 [dependencies]
 blue_engine = { version = "0.5.6" }
@@ -35,6 +42,13 @@ rapier3d = { version = "0.17", features = ["simd-stable"], optional = true }
 egui = { version = "0.26.2", optional = true }
 egui-winit = { version = "0.26.2", optional = true }
 egui-wgpu = { version = "0.26.2", optional = true }
+
+# iced
+iced_wgpu = { version = "0.12", optional = true }
+iced_winit = { version = "0.12", optional = true }
+iced_graphics = { version = "0.12", optional = true }
+iced_widget = { version = "0.12", optional = true }
+iced_runtime = { version = "0.12", optional = true }
 
 # Animation examples
 [[example]]
@@ -70,3 +84,8 @@ path = "examples/physics.rs"
 [[example]]
 name = "hello_egui"
 path = "examples/hello_egui.rs"
+
+# Iced examples
+[[example]]
+name = "hello_iced"
+path = "examples/hello_iced.rs"
