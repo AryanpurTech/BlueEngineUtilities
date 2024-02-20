@@ -22,12 +22,12 @@ fn main() -> color_eyre::Result<()> {
     let start = std::time::SystemTime::now();
 
     let fly_camera = FlyCamera::new(&mut engine.camera);
-    engine.plugins.push(Box::new(fly_camera));
+    engine.signals.add_signal("fly", Box::new(fly_camera));
 
-    engine.update_loop(move |renderer, _, objects, _, camera, _| {
-        let camx = start.elapsed().unwrap().as_secs_f32().sin() * radius;
-        let camy = start.elapsed().unwrap().as_secs_f32().sin() * radius;
-        let camz = start.elapsed().unwrap().as_secs_f32().cos() * radius;
+    engine.update_loop(move |_renderer, _, _objects, _, _camera, _| {
+        let _camx = start.elapsed().unwrap().as_secs_f32().sin() * radius;
+        let _camy = start.elapsed().unwrap().as_secs_f32().sin() * radius;
+        let _camz = start.elapsed().unwrap().as_secs_f32().cos() * radius;
     })?;
     Ok(())
 }

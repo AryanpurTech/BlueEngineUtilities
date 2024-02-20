@@ -1,6 +1,4 @@
-use blue_engine::{
-    wgpu, Camera, EnginePlugin, ObjectStorage, Renderer, Window as Win, DEPTH_FORMAT,
-};
+use blue_engine::{wgpu, Camera, ObjectStorage, Renderer, Window as Win, DEPTH_FORMAT};
 
 pub use egui;
 use egui::ViewportId;
@@ -54,9 +52,9 @@ impl EGUI {
     }
 }
 
-impl EnginePlugin for EGUI {
+impl blue_engine::Signal for EGUI {
     /// updates the inputs and events
-    fn update_events(
+    fn events(
         &mut self,
         _renderer: &mut Renderer,
         window: &Win,
@@ -74,7 +72,7 @@ impl EnginePlugin for EGUI {
         }
     }
 
-    fn update(
+    fn frame(
         &mut self,
         renderer: &mut blue_engine::Renderer,
         window: &blue_engine::Window,

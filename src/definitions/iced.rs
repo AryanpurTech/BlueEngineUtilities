@@ -1,10 +1,26 @@
 use blue_engine::{Camera, EnginePlugin, ObjectStorage, Renderer, Window as Win};
-use iced_runtime::{program::State, Program};
+use iced_runtime::{program::State, Command, Program};
 use iced_wgpu::{Backend, Renderer as IcedRenderer, Settings};
 use iced_winit::{
-    core::{Font, Pixels, Size},
+    core::{Element, Font, Pixels, Size},
     runtime::Debug,
+    style::Theme,
 };
+
+pub struct IcedProgram {}
+impl Program for IcedProgram {
+    type Renderer = IcedRenderer;
+    type Message = ();
+    type Theme = Theme;
+
+    fn update(&mut self, _message: Self::Message) -> Command<Self::Message> {
+        Command::none()
+    }
+
+    fn view(&self) -> Element<Self::Message, Self::Theme, Self::Renderer> {
+        todo!()
+    }
+}
 
 /// The iced plugin
 pub struct Iced {
@@ -14,15 +30,11 @@ pub struct Iced {
 
 impl Iced {
     /// Creates the iced context and platform details
-    pub fn new<P>(
+    pub fn new(
         event_loop: &blue_engine::EventLoop<()>,
         window: &Win,
         blue_renderer: &mut Renderer,
-        mut program: P,
-    ) -> Self
-    where
-        P: Program + 'static,
-    {
+    ) -> Self {
         let physical_size = window.inner_size();
         let mut viewport = iced_graphics::Viewport::with_physical_size(
             Size::new(physical_size.width, physical_size.height),
@@ -48,11 +60,12 @@ impl Iced {
         );
 
         let mut state = State::new(
-            program,
+            IcedProgram {},
             viewport.logical_size(),
             &mut iced_renderer,
             &mut debug,
         );
+
         Self {
             renderer: iced_renderer,
             debug,

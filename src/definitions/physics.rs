@@ -4,7 +4,7 @@
  * The license is same as the one on the root.
 */
 
-use blue_engine::{glm, EnginePlugin, StringBuffer};
+use blue_engine::{glm, StringBuffer};
 use rapier3d::prelude::*;
 use std::collections::HashMap;
 
@@ -137,20 +137,8 @@ impl Physics {
     }
 }
 
-impl EnginePlugin for Physics {
-    fn update_events(
-        &mut self,
-        _renderer: &mut blue_engine::Renderer,
-        _window: &blue_engine::Window,
-        _objects: &mut blue_engine::ObjectStorage,
-        _events: &blue_engine::Event<()>,
-        _input: &blue_engine::InputHelper,
-        _camera: &mut blue_engine::Camera,
-    ) {
-        /* */
-    }
-
-    fn update(
+impl blue_engine::Signal for Physics {
+    fn frame(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
         _window: &blue_engine::Window,

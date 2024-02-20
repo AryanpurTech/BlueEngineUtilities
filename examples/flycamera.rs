@@ -30,7 +30,7 @@ fn main() -> color_eyre::Result<()> {
     let fly_camera = FlyCamera::new(&mut engine.camera);
 
     // Add fly camera to the engine as plugin
-    engine.plugins.push(Box::new(fly_camera));
+    engine.signals.add_signal("flycamera", Box::new(fly_camera));
 
     let timer = std::time::SystemTime::now();
     let mut tick: u64 = 0;

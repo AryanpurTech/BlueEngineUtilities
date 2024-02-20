@@ -41,8 +41,8 @@ impl FlyCamera {
     }
 }
 
-impl blue_engine::EnginePlugin for FlyCamera {
-    fn update_events(
+impl blue_engine::Signal for FlyCamera {
+    fn events(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
         window: &winit::window::Window,
@@ -158,7 +158,7 @@ impl blue_engine::EnginePlugin for FlyCamera {
         }
     }
 
-    fn update(
+    fn frame(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
         _window: &winit::window::Window,

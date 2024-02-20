@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.6"
+version = "0.5.8"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -10,7 +10,7 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf", "physics", "egui", "iced"]
+default = ["animation", "gltf", "physics", "egui"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 physics = ["dep:rapier3d"]
@@ -24,7 +24,7 @@ iced = [
 ]
 
 [dependencies]
-blue_engine = { version = "0.5.6" }
+blue_engine = { version = "0.5.8" }
 #blue_engine = { path = "../Blue Engine" }
 color-eyre = "0.6.2"
 
@@ -86,6 +86,6 @@ name = "hello_egui"
 path = "examples/hello_egui.rs"
 
 # Iced examples
-[[example]]
-name = "hello_iced"
-path = "examples/hello_iced.rs"
+#[[example]]
+#name = "hello_iced"
+#path = "examples/hello_iced.rs"

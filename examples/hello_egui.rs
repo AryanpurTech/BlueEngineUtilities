@@ -33,18 +33,18 @@ fn main() {
     let gui_context = egui::EGUI::new(&engine.event_loop, &mut engine.renderer, &engine.window);
 
     // We add the gui as plugin, which runs once before everything else to fetch events, and once during render times for rendering and other stuff
-    engine.plugins.push(Box::new(gui_context));
+    engine.signals.add_signal("egui", Box::new(gui_context));
 
     let mut color = [1f32, 1f32, 1f32, 1f32];
 
     // Update loop
     engine
-        .update_loop(move |_, window, objects, _, _, plugins| {
+        .update_loop(move |_, window, objects, _, _, signals| {
             // obtain the plugin
-            let egui_plugin = plugins[0]
-                // downcast it to obtain the plugin
-                .downcast_mut::<egui::EGUI>()
-                .expect("Plugin not found");
+            let egui_plugin = signals
+                .get_signal::<egui::EGUI>("egui")
+                .expect("Plugin not found")
+                .expect("Plugin type mismatch");
 
             // ui function will provide the context
             egui_plugin.ui(

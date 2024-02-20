@@ -8,7 +8,7 @@
 
 // Basic imports
 use blue_engine::{
-    header::{Engine, ObjectSettings, WindowDescriptor},
+    header::{Engine, ObjectSettings},
     primitive_shapes::triangle,
 };
 
@@ -43,7 +43,7 @@ impl Controls {
 }
 
 impl Program for Controls {
-    type Renderer = Renderer<Theme>;
+    type Renderer = Renderer;
     type Message = Message;
     type Theme = Theme;
 
@@ -60,7 +60,7 @@ impl Program for Controls {
         Command::none()
     }
 
-    fn view(&self) -> Element<Message, Renderer<Theme>> {
+    fn view(&self) -> Element<Message, Theme, Self::Renderer> {
         let background_color = self.background_color;
         let text = &self.text;
 
@@ -137,11 +137,10 @@ fn main() {
     let controls = Controls::new();
 
     // Start the iced context
-    let gui_context = blue_engine_iced::Iced::new(
+    let gui_context = blue_engine_utilities::iced::Iced::new(
         &engine.event_loop,
         &mut engine.window,
         &mut engine.renderer,
-        controls,
     );
 
     // We add the gui as plugin, which runs once before everything else to fetch events, and once during render times for rendering and other stuff

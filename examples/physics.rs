@@ -86,11 +86,11 @@ fn main() -> color_eyre::Result<()> {
 
     let mut raycast = Raycast::new(&engine.camera);
 
-    engine.plugins.push(Box::new(fly_camera));
-    engine.plugins.push(Box::new(physics));
+    engine.signals.add_signal("fly", Box::new(fly_camera));
+    engine.signals.add_signal("physics", Box::new(physics));
 
-    engine.update_loop(move |_, window, _, input, camera, plugins| {
-        let physics = plugins[1].downcast_mut::<Physics>().unwrap();
+    engine.update_loop(move |_, window, _, input, camera, signals| {
+        let physics = signals.get_signal::<Physics>("physics").unwrap().unwrap();
         raycast.update(camera, input, &window.inner_size());
 
         let ray = Ray::new(camera.position.into(), raycast.get_current_ray());
