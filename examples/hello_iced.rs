@@ -4,7 +4,7 @@
  * Basic GUI example
  *
  * Licensed under Apache-2.0
-*/
+
 
 // Basic imports
 use blue_engine::{
@@ -153,3 +153,6 @@ fn main() {
         .update_loop(move |_, window, objects, _, _, plugins| {})
         .expect("Error during update loop");
 }
+*/
+
+fn main() {}

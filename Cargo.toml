@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.8"
+version = "0.5.9"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -24,7 +24,7 @@ iced = [
 ]
 
 [dependencies]
-blue_engine = { version = "0.5.8" }
+blue_engine = { version = "0.5.9" }
 #blue_engine = { path = "../Blue Engine" }
 color-eyre = "0.6.2"
 

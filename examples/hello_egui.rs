@@ -30,7 +30,7 @@ fn main() {
     .unwrap();
 
     // Start the egui context
-    let gui_context = egui::EGUI::new(&engine.event_loop, &mut engine.renderer, &engine.window);
+    let gui_context = egui::EGUI::new(&mut engine.renderer, &engine.window);
 
     // We add the gui as plugin, which runs once before everything else to fetch events, and once during render times for rendering and other stuff
     engine.signals.add_signal("egui", Box::new(gui_context));
