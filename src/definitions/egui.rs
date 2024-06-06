@@ -19,7 +19,7 @@ impl EGUI {
         let platform = egui_winit::State::new(
             context,
             ViewportId::ROOT,
-            window,
+            &window.window,
             #[cfg(not(target_os = "android"))]
             Some(window.scale_factor() as f32),
             #[cfg(not(target_os = "android"))]

@@ -45,7 +45,7 @@ impl blue_engine::Signal for FlyCamera {
     fn events(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
-        window: &winit::window::Window,
+        window: &blue_engine::Window,
         _objects: &mut ObjectStorage,
         events: &winit::event::Event<()>,
         input: &InputHelper,
@@ -161,7 +161,7 @@ impl blue_engine::Signal for FlyCamera {
     fn frame(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
-        _window: &winit::window::Window,
+        _window: &blue_engine::Window,
         _objects: &mut ObjectStorage,
         _camera: &mut Camera,
         _input: &InputHelper,
