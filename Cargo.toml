@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.10"
+version = "0.5.11"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
