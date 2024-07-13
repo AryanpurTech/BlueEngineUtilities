@@ -1,4 +1,7 @@
-use blue_engine::{wgpu, Camera, ObjectStorage, Renderer, Window as Win, DEPTH_FORMAT};
+use blue_engine::{
+    wgpu, CameraContainer, CommandEncoder, Event, InputHelper, ObjectStorage, Renderer,
+    TextureView, Window as Win, DEPTH_FORMAT,
+};
 
 pub use egui;
 use egui::ViewportId;
@@ -65,9 +68,9 @@ impl blue_engine::Signal for EGUI {
         _renderer: &mut Renderer,
         window: &Win,
         _objects: &mut ObjectStorage,
-        _events: &blue_engine::Event<()>,
-        _input: &blue_engine::InputHelper,
-        _camera: &mut Camera,
+        _events: &Event<()>,
+        _input: &InputHelper,
+        _camera: &mut CameraContainer,
     ) {
         match _events {
             blue_engine::Event::WindowEvent { event, .. } => {
@@ -80,13 +83,13 @@ impl blue_engine::Signal for EGUI {
 
     fn frame(
         &mut self,
-        renderer: &mut blue_engine::Renderer,
-        window: &blue_engine::Window,
+        renderer: &mut Renderer,
+        window: &Win,
         _objects: &mut ObjectStorage,
-        _camera: &mut blue_engine::Camera,
-        _input: &blue_engine::InputHelper,
-        encoder: &mut blue_engine::CommandEncoder,
-        view: &blue_engine::TextureView,
+        _camera: &mut CameraContainer,
+        _input: &InputHelper,
+        encoder: &mut CommandEncoder,
+        view: &TextureView,
     ) {
         if renderer.surface.is_some() {
             if self.full_output.is_some() {

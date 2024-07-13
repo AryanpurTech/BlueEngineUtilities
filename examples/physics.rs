@@ -11,7 +11,7 @@ use blue_engine::{
 use blue_engine_utilities::{physics::Physics, raycast::Raycast, FlyCamera};
 use rapier3d::prelude::*;
 
-fn main() -> color_eyre::Result<()> {
+fn main() -> eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1500,
         height: 1000,
@@ -48,7 +48,7 @@ fn main() -> color_eyre::Result<()> {
         .objects
         .get_mut("ball")
         .unwrap()
-        .set_uniform_color(0.3, 0.3, 0.6, 1f32)?;
+        .set_color(0.3, 0.3, 0.6, 1f32)?;
     engine
         .objects
         .get_mut("ball")
@@ -71,7 +71,7 @@ fn main() -> color_eyre::Result<()> {
         .objects
         .get_mut("ball2")
         .unwrap()
-        .set_uniform_color(0.3, 0.3, 0.6, 1f32)?;
+        .set_color(0.3, 0.3, 0.6, 1f32)?;
     engine
         .objects
         .get_mut("ball2")
@@ -84,16 +84,19 @@ fn main() -> color_eyre::Result<()> {
     let ball_body_handle = physics.insert_rigid_body("ball2", rigid_body);
     physics.insert_collider_with_parent("ball2 collider", collider, ball_body_handle);
 
-    let mut raycast = Raycast::new(&engine.camera);
+    let mut raycast = Raycast::new(&engine.camera.get("main").unwrap());
 
     engine.signals.add_signal("fly", Box::new(fly_camera));
     engine.signals.add_signal("physics", Box::new(physics));
 
     engine.update_loop(move |_, window, _, input, camera, signals| {
         let physics = signals.get_signal::<Physics>("physics").unwrap().unwrap();
-        raycast.update(camera, input, &window.inner_size());
+        raycast.update(camera.get("main").unwrap(), input, &window.inner_size());
 
-        let ray = Ray::new(camera.position.into(), raycast.get_current_ray());
+        let ray = Ray::new(
+            camera.get("main").unwrap().position.into(),
+            raycast.get_current_ray(),
+        );
         let max_toi = 4.0;
         let solid = true;
         let filter = QueryFilter::default();

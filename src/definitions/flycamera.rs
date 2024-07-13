@@ -1,12 +1,16 @@
 use crate::FlyCamera;
-use blue_engine::{glm as nalgebra_glm, wgpu, winit, Camera, InputHelper, ObjectStorage};
+use blue_engine::{glm as nalgebra_glm, winit, CameraContainer, InputHelper, ObjectStorage};
 
 impl FlyCamera {
-    pub fn new(camera: &mut Camera) -> Self {
+    pub fn new(camera: &mut CameraContainer) -> Self {
         camera.add_position_and_target(true);
 
         Self {
-            camera_right: nalgebra_glm::cross(&camera.target, &camera.up).normalize(),
+            camera_right: nalgebra_glm::cross(
+                &camera.get("main").unwrap().target,
+                &camera.get("main").unwrap().up,
+            )
+            .normalize(),
             yaw: -90f32,
             pitch: 0f32,
             last_x: 0f64,
@@ -22,8 +26,12 @@ impl FlyCamera {
         }
     }
 
-    fn update_vertices(camera: &mut Camera) -> nalgebra_glm::Vec3 {
-        let camera_right = nalgebra_glm::cross(&camera.target, &camera.up).normalize();
+    fn update_vertices(camera: &mut CameraContainer) -> nalgebra_glm::Vec3 {
+        let camera_right = nalgebra_glm::cross(
+            &camera.get("main").unwrap().target,
+            &camera.get("main").unwrap().up,
+        )
+        .normalize();
 
         /*let up = nalgebra_glm::cross(&camera_right, &camera.target)
             .normalize()
@@ -49,7 +57,7 @@ impl blue_engine::Signal for FlyCamera {
         _objects: &mut ObjectStorage,
         events: &winit::event::Event<()>,
         input: &InputHelper,
-        camera: &mut Camera,
+        camera: &mut CameraContainer,
     ) {
         // =========== MOVEMENT ============ //
         let current_frame = self.timer.elapsed().as_secs_f32();
@@ -58,7 +66,7 @@ impl blue_engine::Signal for FlyCamera {
         let mut camera_speed = self.camera_speed * delta;
 
         // ============ Window Focus ============= //
-        if input.mouse_pressed(0) {
+        if input.mouse_pressed(blue_engine::MouseButton::Left) {
             if !self.is_focus {
                 window
                     .set_cursor_grab(winit::window::CursorGrabMode::Confined)
@@ -120,7 +128,9 @@ impl blue_engine::Signal for FlyCamera {
 
             // W
             if input.key_held(blue_engine::KeyCode::KeyW) {
-                let result = (camera.position + (camera.target * camera_speed)).data;
+                let result = (camera.get("main").unwrap().position
+                    + (camera.get("main").unwrap().target * camera_speed))
+                    .data;
                 let result = result.as_slice();
 
                 camera
@@ -130,7 +140,9 @@ impl blue_engine::Signal for FlyCamera {
 
             // S
             if input.key_held(blue_engine::KeyCode::KeyS) {
-                let result = (camera.position - (camera.target * camera_speed)).data;
+                let result = (camera.get("main").unwrap().position
+                    - (camera.get("main").unwrap().target * camera_speed))
+                    .data;
                 let result = result.as_slice();
 
                 camera
@@ -139,7 +151,9 @@ impl blue_engine::Signal for FlyCamera {
             }
             // A
             if input.key_held(blue_engine::KeyCode::KeyA) {
-                let result = (camera.position - (self.camera_right * camera_speed)).data;
+                let result = (camera.get("main").unwrap().position
+                    - (self.camera_right * camera_speed))
+                    .data;
                 let result = result.as_slice();
 
                 camera
@@ -148,7 +162,9 @@ impl blue_engine::Signal for FlyCamera {
             }
             // D
             if input.key_held(blue_engine::KeyCode::KeyD) {
-                let result = (camera.position + (self.camera_right * camera_speed)).data;
+                let result = (camera.get("main").unwrap().position
+                    + (self.camera_right * camera_speed))
+                    .data;
                 let result = result.as_slice();
 
                 camera
@@ -156,17 +172,5 @@ impl blue_engine::Signal for FlyCamera {
                     .unwrap();
             }
         }
-    }
-
-    fn frame(
-        &mut self,
-        _renderer: &mut blue_engine::Renderer,
-        _window: &blue_engine::Window,
-        _objects: &mut ObjectStorage,
-        _camera: &mut Camera,
-        _input: &InputHelper,
-        _encoder: &mut wgpu::CommandEncoder,
-        _view: &wgpu::TextureView,
-    ) {
     }
 }

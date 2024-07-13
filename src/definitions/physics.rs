@@ -18,7 +18,7 @@ pub struct Physics {
     pub integration_parameters: IntegrationParameters,
     pub physics_pipeline: PhysicsPipeline,
     pub island_manager: IslandManager,
-    pub broad_phase: BroadPhase,
+    pub broad_phase: DefaultBroadPhase,
     pub narrow_phase: NarrowPhase,
     pub impulse_joint_set: ImpulseJointSet,
     pub multibody_joint_set: MultibodyJointSet,
@@ -39,7 +39,7 @@ impl Physics {
             integration_parameters: IntegrationParameters::default(),
             physics_pipeline: PhysicsPipeline::new(),
             island_manager: IslandManager::new(),
-            broad_phase: BroadPhase::new(),
+            broad_phase: DefaultBroadPhase::new(),
             narrow_phase: NarrowPhase::new(),
             impulse_joint_set: ImpulseJointSet::new(),
             multibody_joint_set: MultibodyJointSet::new(),
@@ -143,7 +143,7 @@ impl blue_engine::Signal for Physics {
         _renderer: &mut blue_engine::Renderer,
         _window: &blue_engine::Window,
         objects: &mut blue_engine::ObjectStorage,
-        _camera: &mut blue_engine::Camera,
+        _camera: &mut blue_engine::CameraContainer,
         _input: &blue_engine::InputHelper,
         _encoder: &mut blue_engine::CommandEncoder,
         _view: &blue_engine::TextureView,
@@ -163,8 +163,7 @@ impl blue_engine::Signal for Physics {
             self.physics_hooks.as_ref(),
             self.event_handler.as_ref(),
         );
-        self.query_pipeline
-            .update(&self.rigid_body_set, &self.collider_set);
+        self.query_pipeline.update(&self.collider_set);
 
         for i in self.rigid_body_set_map.iter() {
             let object = objects.get_mut(i.0);

@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.13"
+version = "0.5.14"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -15,18 +15,11 @@ animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
-iced = [
-    "dep:iced_wgpu",
-    "dep:iced_winit",
-    "dep:iced_graphics",
-    "dep:iced_widget",
-    "dep:iced_runtime",
-]
 
 [dependencies]
-blue_engine = { version = "0.5.13" }
+blue_engine = { version = "0.5.14" }
 #blue_engine = { path = "../Blue Engine" }
-color-eyre = "0.6.2"
+eyre = "0.6.3"
 
 # Animation
 keyframe = { version = "1.1.1", optional = true }
@@ -36,19 +29,12 @@ keyframe_derive = { version = "1.0.0", optional = true }
 gltf = { version = "1.4.0", optional = true }
 
 # physics
-rapier3d = { version = "0.17", features = ["simd-stable"], optional = true }
+rapier3d = { version = "0.21", features = ["simd-stable"], optional = true }
 
 # egui
-egui = { version = "0.27.1", optional = true }
-egui-winit = { version = "0.27.1", optional = true }
-egui-wgpu = { version = "0.27.1", optional = true }
-
-# iced
-iced_wgpu = { version = "0.12", optional = true }
-iced_winit = { version = "0.12", optional = true }
-iced_graphics = { version = "0.12", optional = true }
-iced_widget = { version = "0.12", optional = true }
-iced_runtime = { version = "0.12", optional = true }
+egui = { version = "0.28.1", optional = true }
+egui-winit = { version = "0.28.1", optional = true }
+egui-wgpu = { version = "0.28.1", optional = true }
 
 # Animation examples
 [[example]]
@@ -84,8 +70,3 @@ path = "examples/physics.rs"
 [[example]]
 name = "hello_egui"
 path = "examples/hello_egui.rs"
-
-# Iced examples
-#[[example]]
-#name = "hello_iced"
-#path = "examples/hello_iced.rs"

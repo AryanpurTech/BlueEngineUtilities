@@ -5,7 +5,7 @@ use blue_engine::{
 
 use blue_engine_utilities::FlyCamera;
 
-fn main() -> color_eyre::Result<()> {
+fn main() -> eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1500,
         height: 1000,

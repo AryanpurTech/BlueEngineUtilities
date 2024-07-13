@@ -29,21 +29,21 @@ impl crate::LightManager {
         &mut self,
         objects: &mut ObjectStorage,
         renderer: &mut blue_engine::Renderer,
-        camera: &blue_engine::Camera,
-    ) -> color_eyre::Result<()> {
+        camera: &blue_engine::CameraContainer,
+    ) -> eyre::Result<()> {
         let light_keys: Vec<String> = self.light_objects.keys().map(|x| x.clone()).collect();
         let shader_content = include_str!("./light_shader.wgsl").to_string();
 
         for i in objects.iter_mut() {
             let i = i.1;
-            if light_keys.contains(&i.name) {
+            if light_keys.contains(&i.name.as_ref().to_string()) {
                 self.light_objects.insert(
-                    i.name.clone(),
+                    i.name.as_ref().to_string().clone(),
                     ([i.position.x, i.position.y, i.position.z], i.color),
                 );
             } else {
                 let result = i.color * self.ambient_color;
-                i.set_uniform_color(
+                i.set_color(
                     result.data[0],
                     result.data[1],
                     result.data[2],
@@ -61,7 +61,7 @@ impl crate::LightManager {
                         ambient_strength: self.ambient_strength,
                         inverse_model: i.inverse_transformation_matrix,
                         camera_position: uniform_type::Array3 {
-                            data: camera.position.data.0[0],
+                            data: camera.get("main").unwrap().position.data.0[0],
                         },
                         specular_strength: 0.8,
                     },
@@ -76,8 +76,8 @@ impl crate::LightManager {
 
                 let mut shader_content = shader_content.clone();
 
-                if !self.affected_objects.contains(&i.name) {
-                    if i.camera_effect {
+                if !self.affected_objects.contains(&i.name.as_ref().to_string()) {
+                    if i.camera_effect.is_some() {
                         shader_content = shader_content.replace(
                             "//@CAMERASTRUCT",
                             r#"
@@ -95,7 +95,7 @@ var<uniform> camera_uniform: CameraUniforms;"#,
                     i.shader_builder.shader = shader_content;
                     i.update_shader(renderer)?;
 
-                    self.affected_objects.push(i.name.clone());
+                    self.affected_objects.push(i.name.as_ref().to_string());
                 }
             }
         }

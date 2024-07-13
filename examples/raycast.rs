@@ -6,7 +6,7 @@ use blue_engine::{
 
 use blue_engine_utilities::{raycast::Raycast, FlyCamera};
 
-fn main() -> color_eyre::Result<()> {
+fn main() -> eyre::Result<()> {
     let mut engine = Engine::new_config(WindowDescriptor {
         width: 1000,
         height: 1000,
@@ -35,20 +35,20 @@ fn main() -> color_eyre::Result<()> {
         .set_position(0f32, 5f32, -7f32);
 
     // camera
-    let fly_camera = FlyCamera::new(&mut engine.camera);
+    let _fly_camera = FlyCamera::new(&mut engine.camera);
 
     // Add fly camera to the engine as plugin
     //engine.plugins.push(Box::new(fly_camera));
 
-    let mut raycast = Raycast::new(&engine.camera);
+    let mut raycast = Raycast::new(&engine.camera.get("main").unwrap());
 
-    engine.update_loop(move |renderer, window, objects, input, camera, _| {
-        raycast.update(camera, input, &window.inner_size());
+    engine.update_loop(move |_, window, objects, input, camera, _| {
+        raycast.update(camera.get("main").unwrap(), input, &window.inner_size());
 
         let obj = objects.get_mut("cube1").unwrap();
 
         //if input.mouse_pressed(0) {
-        let raycast_pos = raycast.get_current_ray();
+        let _raycast_pos = raycast.get_current_ray();
         //cube("cube5", renderer, objects);
         //obj.position(raycast_pos.x, raycast_pos.y, raycast_pos.z);
         //}
@@ -61,11 +61,10 @@ fn main() -> color_eyre::Result<()> {
                 (transformation_matrix
                     * glm::vec4(obj.position.x, obj.position.y, obj.position.z, 1f32))
                 .xyz(),
-                (transformation_matrix * glm::vec4(obj.scale.x, obj.scale.y, obj.scale.z, 1f32))
-                    .xyz(),
+                (transformation_matrix * glm::vec4(obj.size.x, obj.size.y, obj.size.z, 1f32)).xyz(),
             ),
             1f32,
-            camera,
+            camera.get("main").unwrap(),
         );
     })?;
 
