@@ -35,6 +35,7 @@ rapier3d = { version = "0.21", features = ["simd-stable"], optional = true }
 egui = { version = "0.28.1", optional = true }
 egui-winit = { version = "0.28.1", optional = true }
 egui-wgpu = { version = "0.28.1", optional = true }
+obj-rs = "0.7.1"
 
 # Animation examples
 [[example]]

@@ -86,3 +86,46 @@ pub fn load_gltf<'a>(
 
     Ok(())
 }
+
+#[cfg(feature = "animation")]
+pub fn load_obj<'a>(
+    name: Option<impl StringBuffer>,
+    path: &std::path::Path,
+    renderer: &mut Renderer,
+    objects: &mut ObjectStorage,
+) -> eyre::Result<()> {
+    use std::io::BufReader;
+
+    let buffer = BufReader::new(std::fs::File::open(path)?);
+    let model_desc: obj::Obj<obj::TexturedVertex> = obj::load_obj(buffer)?;
+    objects.new_object(
+        if name.as_ref().is_some() {
+            let new_name = name.as_ref().unwrap();
+            new_name.as_str()
+        } else {
+            path.to_str().unwrap()
+        },
+        model_desc
+            .vertices
+            .iter()
+            .map(|vertex| {
+                let vertex = vertex;
+                let pos = vertex.position;
+                let norm = vertex.normal;
+                let uv = [vertex.texture[0], vertex.texture[1]];
+                blue_engine::Vertex {
+                    position: pos,
+                    uv,
+                    normal: norm,
+                }
+            })
+            .collect(),
+        model_desc.indices,
+        blue_engine::ObjectSettings {
+            ..Default::default()
+        },
+        renderer,
+    )?;
+
+    Ok(())
+}
