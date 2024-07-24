@@ -1,7 +1,7 @@
 use blue_engine::{ObjectSettings, ObjectStorage, Renderer, StringBuffer, Vertex};
 
-#[cfg(feature = "animation")]
-pub fn load_gltf<'a>(
+#[cfg(feature = "gltf")]
+pub fn load_gltf(
     name: Option<impl StringBuffer>,
     path: &std::path::Path,
     renderer: &mut Renderer,
@@ -9,10 +9,10 @@ pub fn load_gltf<'a>(
 ) -> eyre::Result<()> {
     println!("THE MODEL LOADING FEATURE IS STILL EXPERIMENTAL!");
     println!("start parsing gltf");
-    let (gltf, buffers, images) = gltf::import(&path)?;
+    let (gltf, buffers, images) = gltf::import(path)?;
 
     let mut _texture: Option<blue_engine::Textures> = None;
-    if images.len() > 0 {
+    if !images.is_empty() {
         _texture = Some(renderer.build_texture(
             "text",
             blue_engine::TextureData::Bytes(images[0].pixels.clone()),
@@ -70,12 +70,10 @@ pub fn load_gltf<'a>(
             if name.as_ref().is_some() {
                 let new_name = name.as_ref().unwrap();
                 new_name.as_str()
+            } else if mesh.name().is_some() {
+                mesh.name().unwrap()
             } else {
-                if mesh.name().is_some() {
-                    mesh.name().unwrap()
-                } else {
-                    path.to_str().unwrap()
-                }
+                path.to_str().unwrap()
             },
             verticies,
             indicies,
@@ -87,7 +85,7 @@ pub fn load_gltf<'a>(
     Ok(())
 }
 
-#[cfg(feature = "animation")]
+#[cfg(feature = "obj")]
 pub fn load_obj<'a>(
     name: Option<impl StringBuffer>,
     path: &std::path::Path,

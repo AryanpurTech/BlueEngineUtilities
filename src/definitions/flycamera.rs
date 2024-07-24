@@ -66,14 +66,12 @@ impl blue_engine::Signal for FlyCamera {
         let mut camera_speed = self.camera_speed * delta;
 
         // ============ Window Focus ============= //
-        if input.mouse_pressed(blue_engine::MouseButton::Left) {
-            if !self.is_focus {
-                window
-                    .set_cursor_grab(winit::window::CursorGrabMode::Confined)
-                    .expect("Couldn't grab the cursor");
-                window.set_cursor_visible(false);
-                self.is_focus = true;
-            }
+        if input.mouse_pressed(blue_engine::MouseButton::Left) && !self.is_focus {
+            window
+                .set_cursor_grab(winit::window::CursorGrabMode::Confined)
+                .expect("Couldn't grab the cursor");
+            window.set_cursor_visible(false);
+            self.is_focus = true;
         }
 
         if self.is_focus {

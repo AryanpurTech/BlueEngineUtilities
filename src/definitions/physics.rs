@@ -137,6 +137,12 @@ impl Physics {
     }
 }
 
+impl Default for Physics {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl blue_engine::Signal for Physics {
     fn frame(
         &mut self,

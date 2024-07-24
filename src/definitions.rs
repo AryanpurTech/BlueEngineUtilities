@@ -4,7 +4,7 @@ pub mod animation;
 pub mod egui;
 pub mod flycamera;
 pub mod light;
-#[cfg(feature = "gltf")]
+
 pub mod model_load;
 #[cfg(feature = "physics")]
 pub mod physics;

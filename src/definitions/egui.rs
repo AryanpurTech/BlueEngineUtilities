@@ -91,82 +91,74 @@ impl blue_engine::Signal for EGUI {
         encoder: &mut CommandEncoder,
         view: &TextureView,
     ) {
-        if renderer.surface.is_some() {
-            if self.full_output.is_some() {
-                let egui::FullOutput {
-                    platform_output,
-                    textures_delta,
-                    shapes,
-                    pixels_per_point,
-                    ..
-                } = self
-                    .full_output
-                    .as_ref()
-                    .expect("Failed to get egui output");
+        if renderer.surface.is_some() && self.full_output.is_some() {
+            let egui::FullOutput {
+                platform_output,
+                textures_delta,
+                shapes,
+                pixels_per_point,
+                ..
+            } = self
+                .full_output
+                .as_ref()
+                .expect("Failed to get egui output");
 
-                self.platform
-                    .handle_platform_output(&window, platform_output.clone());
+            self.platform
+                .handle_platform_output(&window, platform_output.clone());
 
-                let paint_jobs = self.context.tessellate(shapes.clone(), *pixels_per_point);
+            let paint_jobs = self.context.tessellate(shapes.clone(), *pixels_per_point);
 
-                let screen_descriptor = egui_wgpu::ScreenDescriptor {
-                    size_in_pixels: [
-                        renderer.config.width,
-                        #[cfg(target_os = "android")]
-                        {
-                            renderer.config.height - 20
-                        },
-                        #[cfg(not(target_os = "android"))]
-                        renderer.config.height,
-                    ],
-                    pixels_per_point: *pixels_per_point,
-                };
+            let screen_descriptor = egui_wgpu::ScreenDescriptor {
+                size_in_pixels: [
+                    renderer.config.width,
+                    #[cfg(target_os = "android")]
+                    {
+                        renderer.config.height - 20
+                    },
+                    #[cfg(not(target_os = "android"))]
+                    renderer.config.height,
+                ],
+                pixels_per_point: *pixels_per_point,
+            };
 
-                for (id, image_delta) in &textures_delta.set {
-                    self.renderer.update_texture(
-                        &renderer.device,
-                        &renderer.queue,
-                        *id,
-                        image_delta,
-                    );
-                }
+            for (id, image_delta) in &textures_delta.set {
+                self.renderer
+                    .update_texture(&renderer.device, &renderer.queue, *id, image_delta);
+            }
 
-                self.renderer.update_buffers(
-                    &renderer.device,
-                    &renderer.queue,
-                    encoder,
-                    &paint_jobs,
-                    &screen_descriptor,
-                );
-                {
-                    let mut render_pass =
-                        encoder.begin_render_pass(&blue_engine::RenderPassDescriptor {
-                            label: Some("Render pass"),
-                            color_attachments: &[Some(blue_engine::RenderPassColorAttachment {
-                                view: &view,
-                                resolve_target: None,
-                                ops: blue_engine::Operations {
-                                    load: blue_engine::LoadOp::Load,
-                                    store: wgpu::StoreOp::Store,
-                                },
-                            })],
-                            depth_stencil_attachment: Some(
-                                wgpu::RenderPassDepthStencilAttachment {
-                                    view: &renderer.depth_buffer.1,
-                                    depth_ops: Some(wgpu::Operations {
-                                        load: wgpu::LoadOp::Clear(1.0),
-                                        store: wgpu::StoreOp::Store,
-                                    }),
-                                    stencil_ops: None,
-                                },
-                            ),
-                            timestamp_writes: None,
-                            occlusion_query_set: None,
-                        });
+            self.renderer.update_buffers(
+                &renderer.device,
+                &renderer.queue,
+                encoder,
+                &paint_jobs,
+                &screen_descriptor,
+            );
+            {
+                let mut render_pass =
+                    encoder.begin_render_pass(&blue_engine::RenderPassDescriptor {
+                        label: Some("Render pass"),
+                        color_attachments: &[Some(blue_engine::RenderPassColorAttachment {
+                            view: &view,
+                            resolve_target: None,
+                            ops: blue_engine::Operations {
+                                load: blue_engine::LoadOp::Load,
+                                store: wgpu::StoreOp::Store,
+                            },
+                        })],
+                        depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
+                            view: &renderer.depth_buffer.1,
+                            depth_ops: Some(wgpu::Operations {
+                                load: wgpu::LoadOp::Clear(1.0),
+                                store: wgpu::StoreOp::Store,
+                            }),
+                            stencil_ops: None,
+                        }),
+                        timestamp_writes: None,
+                        occlusion_query_set: None,
+                    });
 
-                    self.renderer
-                        .render(&mut render_pass, &paint_jobs, &screen_descriptor);
-                }
+                self.renderer
+                    .render(&mut render_pass, &paint_jobs, &screen_descriptor);
             }
         }
     }

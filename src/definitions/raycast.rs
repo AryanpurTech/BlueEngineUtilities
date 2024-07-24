@@ -108,6 +108,6 @@ impl Raycast {
             t_exit
         ); */
 
-        return None;
+        None
     }
 }

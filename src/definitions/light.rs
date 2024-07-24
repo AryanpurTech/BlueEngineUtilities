@@ -31,7 +31,7 @@ impl crate::LightManager {
         renderer: &mut blue_engine::Renderer,
         camera: &blue_engine::CameraContainer,
     ) -> eyre::Result<()> {
-        let light_keys: Vec<String> = self.light_objects.keys().map(|x| x.clone()).collect();
+        let light_keys: Vec<String> = self.light_objects.keys().cloned().collect();
         let shader_content = include_str!("./light_shader.wgsl").to_string();
 
         for i in objects.iter_mut() {
@@ -113,5 +113,11 @@ var<uniform> camera_uniform: CameraUniforms;"#,
                 },
             ),
         );
+    }
+}
+
+impl Default for crate::LightManager {
+    fn default() -> Self {
+        Self::new()
     }
 }
