@@ -55,7 +55,7 @@ impl EGUI {
     }
 
     pub fn ui<F: FnOnce(&egui::Context)>(&mut self, callback: F, window: &Win) {
-        let raw_input = self.platform.take_egui_input(&window);
+        let raw_input = self.platform.take_egui_input(window);
 
         self.full_output = Some(self.context.run(raw_input, callback));
     }
@@ -72,12 +72,9 @@ impl blue_engine::Signal for EGUI {
         _input: &InputHelper,
         _camera: &mut CameraContainer,
     ) {
-        match _events {
-            blue_engine::Event::WindowEvent { event, .. } => {
-                //? has a return, maybe useful in the future
-                let _ = self.platform.on_window_event(window, event);
-            }
-            _ => {}
+        if let blue_engine::Event::WindowEvent { event, .. } = _events {
+            //? has a return, maybe useful in the future
+            let _ = self.platform.on_window_event(window, event);
         }
     }
 
@@ -104,7 +101,7 @@ impl blue_engine::Signal for EGUI {
                 .expect("Failed to get egui output");
 
             self.platform
-                .handle_platform_output(&window, platform_output.clone());
+                .handle_platform_output(window, platform_output.clone());
 
             let paint_jobs = self.context.tessellate(shapes.clone(), *pixels_per_point);
 
@@ -138,7 +135,7 @@ impl blue_engine::Signal for EGUI {
                     encoder.begin_render_pass(&blue_engine::RenderPassDescriptor {
                         label: Some("Render pass"),
                         color_attachments: &[Some(blue_engine::RenderPassColorAttachment {
-                            view: &view,
+                            view,
                             resolve_target: None,
                             ops: blue_engine::Operations {
                                 load: blue_engine::LoadOp::Load,
@@ -230,7 +227,7 @@ impl EmbeddedRender {
         let buffers = object.update_and_return(cc).unwrap();
 
         let camera_data = cc
-            .build_uniform_buffer(&vec![cc.build_uniform_buffer_part(
+            .build_uniform_buffer(&[cc.build_uniform_buffer_part(
                 "Camera Uniform",
                 blue_engine::utils::default_resources::DEFAULT_MATRIX_4,
             )])

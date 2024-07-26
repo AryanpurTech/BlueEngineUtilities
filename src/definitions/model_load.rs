@@ -86,7 +86,7 @@ pub fn load_gltf(
 }
 
 #[cfg(feature = "obj")]
-pub fn load_obj<'a>(
+pub fn load_obj(
     name: Option<impl StringBuffer>,
     path: &std::path::Path,
     renderer: &mut Renderer,
@@ -107,7 +107,6 @@ pub fn load_obj<'a>(
             .vertices
             .iter()
             .map(|vertex| {
-                let vertex = vertex;
                 let pos = vertex.position;
                 let norm = vertex.normal;
                 let uv = [vertex.texture[0], vertex.texture[1]];

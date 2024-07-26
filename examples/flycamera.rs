@@ -43,7 +43,7 @@ fn main() -> eyre::Result<()> {
             println!("FPS: {}", fps);
             fps = 0;
         } else {
-            fps = fps + 1;
+            fps += 1;
         }
     })?;
 

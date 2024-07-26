@@ -84,7 +84,7 @@ fn main() -> eyre::Result<()> {
     let ball_body_handle = physics.insert_rigid_body("ball2", rigid_body);
     physics.insert_collider_with_parent("ball2 collider", collider, ball_body_handle);
 
-    let mut raycast = Raycast::new(&engine.camera.get("main").unwrap());
+    let mut raycast = Raycast::new(engine.camera.get("main").unwrap());
 
     engine.signals.add_signal("fly", Box::new(fly_camera));
     engine.signals.add_signal("physics", Box::new(physics));

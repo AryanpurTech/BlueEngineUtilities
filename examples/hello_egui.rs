@@ -62,7 +62,7 @@ fn main() {
                         .set_color(color[0], color[1], color[2], color[3])
                         .unwrap();
                 },
-                &window,
+                window,
             );
         })
         .expect("Error during update loop");

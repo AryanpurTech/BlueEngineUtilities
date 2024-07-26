@@ -40,7 +40,7 @@ fn main() -> eyre::Result<()> {
     // Add fly camera to the engine as plugin
     //engine.plugins.push(Box::new(fly_camera));
 
-    let mut raycast = Raycast::new(&engine.camera.get("main").unwrap());
+    let mut raycast = Raycast::new(engine.camera.get("main").unwrap());
 
     engine.update_loop(move |_, window, objects, input, camera, _| {
         raycast.update(camera.get("main").unwrap(), input, &window.inner_size());
