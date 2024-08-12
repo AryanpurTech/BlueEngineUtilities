@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.15"
+version = "0.5.16"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -10,7 +10,7 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf", "physics", "egui"]
+default = ["animation", "gltf", "physics"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 obj = ["dep:obj-rs"]
@@ -18,7 +18,7 @@ physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
 
 [dependencies]
-blue_engine = { version = "0.5.15" }
+blue_engine = { version = ">=0.5.16" }
 #blue_engine = { path = "../Blue Engine" }
 eyre = "0.6.3"
 

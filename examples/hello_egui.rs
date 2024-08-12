@@ -59,8 +59,7 @@ fn main() {
                     objects
                         .get_mut("triangle")
                         .unwrap()
-                        .set_color(color[0], color[1], color[2], color[3])
-                        .unwrap();
+                        .set_color(color[0], color[1], color[2], color[3]);
                 },
                 window,
             );

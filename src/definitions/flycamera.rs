@@ -68,9 +68,11 @@ impl blue_engine::Signal for FlyCamera {
         // ============ Window Focus ============= //
         if input.mouse_pressed(blue_engine::MouseButton::Left) && !self.is_focus {
             window
+                .as_ref()
+                .unwrap()
                 .set_cursor_grab(winit::window::CursorGrabMode::Confined)
                 .expect("Couldn't grab the cursor");
-            window.set_cursor_visible(false);
+            window.as_ref().unwrap().set_cursor_visible(false);
             self.is_focus = true;
         }
 
@@ -113,9 +115,11 @@ impl blue_engine::Signal for FlyCamera {
 
             if input.key_pressed(blue_engine::KeyCode::Escape) {
                 window
+                    .as_ref()
+                    .unwrap()
                     .set_cursor_grab(winit::window::CursorGrabMode::None)
                     .expect("Couldn't release the cursor");
-                window.set_cursor_visible(true);
+                window.as_ref().unwrap().set_cursor_visible(true);
                 self.is_focus = false;
             }
 

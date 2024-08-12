@@ -17,40 +17,45 @@ pub struct EGUI {
 
 impl EGUI {
     /// Creates the egui context and platform details
-    pub fn new(renderer: &mut Renderer, window: &Win) -> Self {
-        let context = egui::Context::default();
-        let platform = egui_winit::State::new(
-            context,
-            ViewportId::ROOT,
-            &window.window,
-            #[cfg(not(target_os = "android"))]
-            Some(window.scale_factor() as f32),
-            #[cfg(not(target_os = "android"))]
-            Some(renderer.device.limits().max_texture_dimension_2d as usize),
+    pub fn new(renderer: &mut Renderer, window: &Win) -> Option<Self> {
+        if let Some(window) = window.window {
+            let context = egui::Context::default();
+            let platform = egui_winit::State::new(
+                context,
+                ViewportId::ROOT,
+                &window,
+                #[cfg(not(target_os = "android"))]
+                Some(window.scale_factor() as f32),
+                #[cfg(not(target_os = "android"))]
+                Some(renderer.device.limits().max_texture_dimension_2d as usize),
+                #[cfg(target_os = "android")]
+                None,
+                #[cfg(target_os = "android")]
+                None,
+            );
             #[cfg(target_os = "android")]
-            None,
-            #[cfg(target_os = "android")]
-            None,
-        );
-        #[cfg(target_os = "android")]
-        let format = blue_engine::wgpu::TextureFormat::Rgba8UnormSrgb;
+            let format = blue_engine::wgpu::TextureFormat::Rgba8UnormSrgb;
 
-        #[cfg(not(target_os = "android"))]
-        let format = renderer
-            .surface
-            .as_ref()
-            .unwrap()
-            .get_capabilities(&renderer.adapter)
-            .formats[0];
+            #[cfg(not(target_os = "android"))]
+            let format = renderer
+                .surface
+                .as_ref()
+                .unwrap()
+                .get_capabilities(&renderer.adapter)
+                .formats[0];
 
-        let renderer = egui_wgpu::Renderer::new(&renderer.device, format, Some(DEPTH_FORMAT), 1);
+            let renderer =
+                egui_wgpu::Renderer::new(&renderer.device, format, Some(DEPTH_FORMAT), 1);
 
-        Self {
-            context: Default::default(),
-            platform,
-            renderer,
-            full_output: None,
-            raw_input: None,
+            Some(Self {
+                context: Default::default(),
+                platform,
+                renderer,
+                full_output: None,
+                raw_input: None,
+            })
+        } else {
+            None
         }
     }
 

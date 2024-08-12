@@ -48,7 +48,7 @@ impl crate::LightManager {
                     result.data[1],
                     result.data[2],
                     result.data[3],
-                )?;
+                );
 
                 let pos = *self.light_objects.get(&light_keys[0]).unwrap();
                 let light_uniform_buffer = renderer.build_uniform_buffer_part(

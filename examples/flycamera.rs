@@ -24,7 +24,7 @@ fn main() -> eyre::Result<()> {
         .objects
         .get_mut("floor")
         .unwrap()
-        .set_texture(texture)?;
+        .set_texture(texture);
 
     // camera
     let fly_camera = FlyCamera::new(&mut engine.camera);

@@ -43,7 +43,11 @@ fn main() -> eyre::Result<()> {
     let mut raycast = Raycast::new(engine.camera.get("main").unwrap());
 
     engine.update_loop(move |_, window, objects, input, camera, _| {
-        raycast.update(camera.get("main").unwrap(), input, &window.inner_size());
+        raycast.update(
+            camera.get("main").unwrap(),
+            input,
+            &window.as_ref().unwrap().inner_size(),
+        );
 
         let obj = objects.get_mut("cube1").unwrap();
 

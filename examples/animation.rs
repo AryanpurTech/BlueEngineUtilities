@@ -59,7 +59,7 @@ fn main() -> eyre::Result<()> {
 
     engine.update_loop(move |_, window, objects, _, _, _| {
         // animate the object
-        animation.animate(objects, window.inner_size());
+        animation.animate(objects, window.as_ref().unwrap().inner_size());
     })?;
 
     Ok(())

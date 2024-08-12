@@ -48,7 +48,7 @@ fn main() -> eyre::Result<()> {
         .objects
         .get_mut("ball")
         .unwrap()
-        .set_color(0.3, 0.3, 0.6, 1f32)?;
+        .set_color(0.3, 0.3, 0.6, 1f32);
     engine
         .objects
         .get_mut("ball")
@@ -71,7 +71,7 @@ fn main() -> eyre::Result<()> {
         .objects
         .get_mut("ball2")
         .unwrap()
-        .set_color(0.3, 0.3, 0.6, 1f32)?;
+        .set_color(0.3, 0.3, 0.6, 1f32);
     engine
         .objects
         .get_mut("ball2")
@@ -91,7 +91,11 @@ fn main() -> eyre::Result<()> {
 
     engine.update_loop(move |_, window, _, input, camera, signals| {
         let physics = signals.get_signal::<Physics>("physics").unwrap().unwrap();
-        raycast.update(camera.get("main").unwrap(), input, &window.inner_size());
+        raycast.update(
+            camera.get("main").unwrap(),
+            input,
+            &window.as_ref().unwrap().inner_size(),
+        );
 
         let ray = Ray::new(
             camera.get("main").unwrap().position.into(),
