@@ -34,11 +34,6 @@ obj-rs = { version = "0.7.1", optional = true }
 rapier3d = { version = "0.21", features = ["simd-stable"], optional = true }
 
 # egui
-egui = { version = "0.28.1", optional = true }
-egui-winit = { version = "0.28.1", optional = true }
-egui-wgpu = { version = "0.28.1", optional = true }
-
-[patch.crates-io]
 egui = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
 egui-wgpu = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
 egui-winit = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
