@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.5.16"
+version = "0.5.20"
 edition = "2021"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -10,7 +10,7 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf", "physics"]
+default = ["animation", "gltf", "physics", "egui"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 obj = ["dep:obj-rs"]
@@ -18,7 +18,7 @@ physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
 
 [dependencies]
-blue_engine = { version = ">=0.5.16" }
+blue_engine = { version = ">=0.5.20" }
 #blue_engine = { path = "../Blue Engine" }
 eyre = "0.6.3"
 
@@ -37,6 +37,11 @@ rapier3d = { version = "0.21", features = ["simd-stable"], optional = true }
 egui = { version = "0.28.1", optional = true }
 egui-winit = { version = "0.28.1", optional = true }
 egui-wgpu = { version = "0.28.1", optional = true }
+
+[patch.crates-io]
+egui = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
+egui-wgpu = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
+egui-winit = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
 
 # Animation examples
 [[example]]

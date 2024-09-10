@@ -7,6 +7,8 @@ pub fn load_gltf(
     renderer: &mut Renderer,
     objects: &mut ObjectStorage,
 ) -> eyre::Result<()> {
+    use blue_engine::UnsignedIntType;
+
     println!("THE MODEL LOADING FEATURE IS STILL EXPERIMENTAL!");
     println!("start parsing gltf");
     let (gltf, buffers, images) = gltf::import(path)?;
@@ -23,7 +25,7 @@ pub fn load_gltf(
     println!("gltf parsed, starting disassembly");
     for mesh in gltf.meshes() {
         let mut verticies = Vec::<Vertex>::new();
-        let mut indicies = Vec::<u16>::new();
+        let mut indicies = Vec::new();
         println!("{:?}", mesh.name());
         for primitive in mesh.primitives() {
             let reader = primitive.reader(|buffer| Some(&buffers[buffer.index()]));
@@ -53,12 +55,12 @@ pub fn load_gltf(
                 match index {
                     gltf::mesh::util::ReadIndices::U16(iter) => {
                         for i in iter {
-                            indicies.push(i);
+                            indicies.push(i as UnsignedIntType);
                         }
                     }
                     gltf::mesh::util::ReadIndices::U32(iter) => {
                         for i in iter {
-                            indicies.push(i as u16);
+                            indicies.push(i as UnsignedIntType);
                         }
                     }
                     _ => (),
