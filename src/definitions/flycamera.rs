@@ -50,12 +50,12 @@ impl FlyCamera {
 }
 
 impl blue_engine::Signal for FlyCamera {
-    fn events(
+    fn device_events(
         &mut self,
         _renderer: &mut blue_engine::Renderer,
         window: &blue_engine::Window,
         _objects: &mut ObjectStorage,
-        events: &winit::event::Event<()>,
+        events: &winit::event::DeviceEvent,
         input: &InputHelper,
         camera: &mut CameraContainer,
     ) {
@@ -77,102 +77,89 @@ impl blue_engine::Signal for FlyCamera {
         }
 
         if self.is_focus {
-            match events {
-                winit::event::Event::DeviceEvent { event, .. } => match event {
-                    winit::event::DeviceEvent::MouseMotion { delta: (x, y) } => {
-                        let mut xoffset = *x as f32;
-                        let mut yoffset = *y as f32;
+            if let winit::event::DeviceEvent::MouseMotion { delta: (x, y) } = events {
+                let mut xoffset = *x as f32;
+                let mut yoffset = *y as f32;
 
-                        xoffset *= self.camera_sensitivity;
-                        yoffset *= self.camera_sensitivity;
+                xoffset *= self.camera_sensitivity;
+                yoffset *= self.camera_sensitivity;
 
-                        self.yaw += xoffset;
-                        self.pitch += yoffset;
+                self.yaw += xoffset;
+                self.pitch += yoffset;
 
-                        if self.pitch > 89f32 {
-                            self.pitch = 89f32;
-                        }
-                        if self.pitch < -89f32 {
-                            self.pitch = -89f32;
-                        }
+                self.pitch = self.pitch.clamp(-89f32, 89f32);
 
-                        let direction = nalgebra_glm::vec3(
-                            self.yaw.to_radians().cos() * self.pitch.to_radians().cos(),
-                            (self.pitch * -1f32).to_radians().sin(),
-                            self.yaw.to_radians().sin() * self.pitch.to_radians().cos(),
-                        );
-                        let direction = direction.normalize().data;
-                        let direction = direction.as_slice();
-                        camera
-                            .set_target(direction[0], direction[1], direction[2])
-                            .unwrap();
-                        self.camera_right = Self::update_vertices(camera);
-                    }
-                    _ => {}
-                },
-                _ => {}
-            }
-
-            if input.key_pressed(blue_engine::KeyCode::Escape) {
-                window
-                    .as_ref()
-                    .unwrap()
-                    .set_cursor_grab(winit::window::CursorGrabMode::None)
-                    .expect("Couldn't release the cursor");
-                window.as_ref().unwrap().set_cursor_visible(true);
-                self.is_focus = false;
-            }
-
-            // SHIFT
-            if input.held_shift() {
-                camera_speed *= 3f32;
-            }
-
-            // W
-            if input.key_held(blue_engine::KeyCode::KeyW) {
-                let result = (camera.get("main").unwrap().position
-                    + (camera.get("main").unwrap().target * camera_speed))
-                    .data;
-                let result = result.as_slice();
-
+                let direction = nalgebra_glm::vec3(
+                    self.yaw.to_radians().cos() * self.pitch.to_radians().cos(),
+                    (self.pitch * -1f32).to_radians().sin(),
+                    self.yaw.to_radians().sin() * self.pitch.to_radians().cos(),
+                );
+                let direction = direction.normalize().data;
+                let direction = direction.as_slice();
                 camera
-                    .set_position(result[0], result[1], result[2])
+                    .set_target(direction[0], direction[1], direction[2])
                     .unwrap();
+                self.camera_right = Self::update_vertices(camera);
             }
+        }
 
-            // S
-            if input.key_held(blue_engine::KeyCode::KeyS) {
-                let result = (camera.get("main").unwrap().position
-                    - (camera.get("main").unwrap().target * camera_speed))
-                    .data;
-                let result = result.as_slice();
+        if input.key_pressed(blue_engine::KeyCode::Escape) {
+            window
+                .as_ref()
+                .unwrap()
+                .set_cursor_grab(winit::window::CursorGrabMode::None)
+                .expect("Couldn't release the cursor");
+            window.as_ref().unwrap().set_cursor_visible(true);
+            self.is_focus = false;
+        }
 
-                camera
-                    .set_position(result[0], result[1], result[2])
-                    .unwrap();
-            }
-            // A
-            if input.key_held(blue_engine::KeyCode::KeyA) {
-                let result = (camera.get("main").unwrap().position
-                    - (self.camera_right * camera_speed))
-                    .data;
-                let result = result.as_slice();
+        // SHIFT
+        if input.held_shift() {
+            camera_speed *= 3f32;
+        }
 
-                camera
-                    .set_position(result[0], result[1], result[2])
-                    .unwrap();
-            }
-            // D
-            if input.key_held(blue_engine::KeyCode::KeyD) {
-                let result = (camera.get("main").unwrap().position
-                    + (self.camera_right * camera_speed))
-                    .data;
-                let result = result.as_slice();
+        // W
+        if input.key_held(blue_engine::KeyCode::KeyW) {
+            let result = (camera.get("main").unwrap().position
+                + (camera.get("main").unwrap().target * camera_speed))
+                .data;
+            let result = result.as_slice();
 
-                camera
-                    .set_position(result[0], result[1], result[2])
-                    .unwrap();
-            }
+            camera
+                .set_position(result[0], result[1], result[2])
+                .unwrap();
+        }
+
+        // S
+        if input.key_held(blue_engine::KeyCode::KeyS) {
+            let result = (camera.get("main").unwrap().position
+                - (camera.get("main").unwrap().target * camera_speed))
+                .data;
+            let result = result.as_slice();
+
+            camera
+                .set_position(result[0], result[1], result[2])
+                .unwrap();
+        }
+        // A
+        if input.key_held(blue_engine::KeyCode::KeyA) {
+            let result =
+                (camera.get("main").unwrap().position - (self.camera_right * camera_speed)).data;
+            let result = result.as_slice();
+
+            camera
+                .set_position(result[0], result[1], result[2])
+                .unwrap();
+        }
+        // D
+        if input.key_held(blue_engine::KeyCode::KeyD) {
+            let result =
+                (camera.get("main").unwrap().position + (self.camera_right * camera_speed)).data;
+            let result = result.as_slice();
+
+            camera
+                .set_position(result[0], result[1], result[2])
+                .unwrap();
         }
     }
 }
