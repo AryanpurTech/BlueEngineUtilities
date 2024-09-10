@@ -270,8 +270,14 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0481a0e032742109b1133a095184ee93d88f3dc9e0d28a5d033dc77a073f44f"
 dependencies = [
- "bit-vec",
+ "bit-vec 0.7.0",
 ]
+
+[[package]]
+name = "bit-vec"
+version = "0.6.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "349f9b6a179ed607305526ca489b34ad0a41aed5f7980fa90eb03160b69598fb"
 
 [[package]]
 name = "bit-vec"
@@ -726,6 +732,7 @@ checksum = "f25c0e292a7ca6d6498557ff1df68f32c99850012b6ea401cf8daf771f22ff53"
 [[package]]
 name = "ecolor"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "bytemuck",
  "emath",
@@ -734,6 +741,7 @@ dependencies = [
 [[package]]
 name = "egui"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "ahash",
  "emath",
@@ -745,6 +753,7 @@ dependencies = [
 [[package]]
 name = "egui-wgpu"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "ahash",
  "bytemuck",
@@ -761,6 +770,7 @@ dependencies = [
 [[package]]
 name = "egui-winit"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "ahash",
  "arboard",
@@ -782,6 +792,7 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 [[package]]
 name = "emath"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "bytemuck",
 ]
@@ -812,6 +823,7 @@ dependencies = [
 [[package]]
 name = "epaint"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 dependencies = [
  "ab_glyph",
  "ahash",
@@ -827,6 +839,7 @@ dependencies = [
 [[package]]
 name = "epaint_default_fonts"
 version = "0.28.1"
+source = "git+https://github.com/emilk/egui.git?rev=89b6055f9cc8954e0a27d17bae2d10f089592330#89b6055f9cc8954e0a27d17bae2d10f089592330"
 
 [[package]]
 name = "equivalent"
@@ -1105,15 +1118,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hash32"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47d60b12902ba28e2730cd37e95b8c9223af2808df9e902d4df49588d1470606"
-dependencies = [
- "byteorder",
-]
-
-[[package]]
 name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1136,16 +1140,6 @@ dependencies = [
  "thiserror",
  "widestring",
  "winapi",
-]
-
-[[package]]
-name = "heapless"
-version = "0.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0bfb9eb618601c89945a70e254898da93b13be0388091d42117462b265bb3fad"
-dependencies = [
- "hash32",
- "stable_deref_trait",
 ]
 
 [[package]]
@@ -2037,9 +2031,9 @@ dependencies = [
 
 [[package]]
 name = "parry3d"
-version = "0.17.1"
+version = "0.16.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5ebb313092c7cd16da86f8a6a14ac823e36ff1d9b8f727d25bdebf3e4bc4d56"
+checksum = "ec1d9cc5a359352e2be7e47270cef9f9e175794c03302553353804a436228e7f"
 dependencies = [
  "approx",
  "arrayvec",
@@ -2051,7 +2045,6 @@ dependencies = [
  "num-derive",
  "num-traits",
  "ordered-float",
- "rstar",
  "rustc-hash 2.0.0",
  "simba",
  "slab",
@@ -2261,13 +2254,13 @@ checksum = "9c8a99fddc9f0ba0a85884b8d14e3592853e787d581ca1816c91349b10e4eeab"
 
 [[package]]
 name = "rapier3d"
-version = "0.22.0"
+version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87360935d1a54802efe0ddf908489436bb49c84865c36c930131843c7b1dc97d"
+checksum = "bdfa17fa28a7a4cfaebf669f57ca34dce0e758b295bd8a2aa1fbac4e054fb836"
 dependencies = [
  "approx",
  "arrayvec",
- "bit-vec",
+ "bit-vec 0.6.3",
  "bitflags 2.6.0",
  "crossbeam",
  "downcast-rs",
@@ -2431,17 +2424,6 @@ name = "robust"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cbf4a6aa5f6d6888f39e980649f3ad6b666acdce1d78e95b8a2cb076e687ae30"
-
-[[package]]
-name = "rstar"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "133315eb94c7b1e8d0cb097e5a710d850263372fd028fff18969de708afc7008"
-dependencies = [
- "heapless",
- "num-traits",
- "smallvec",
-]
 
 [[package]]
 name = "rustc-hash"
@@ -2690,12 +2672,6 @@ checksum = "eda41003dc44290527a59b13432d4a0379379fa074b70174882adfbdfd917844"
 dependencies = [
  "bitflags 2.6.0",
 ]
-
-[[package]]
-name = "stable_deref_trait"
-version = "1.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
 name = "static_assertions"
@@ -3260,7 +3236,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0348c840d1051b8e86c3bcd31206080c5e71e5933dabd79be1ce732b0b2f089a"
 dependencies = [
  "arrayvec",
- "bit-vec",
+ "bit-vec 0.7.0",
  "bitflags 2.6.0",
  "cfg_aliases 0.1.1",
  "document-features",

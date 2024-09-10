@@ -17,7 +17,6 @@ obj = ["dep:obj-rs"]
 physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
 
-
 [dependencies]
 blue_engine = { version = ">=0.5.20" }
 #blue_engine = { path = "../Blue Engine" }
@@ -32,12 +31,12 @@ gltf = { version = "1.4.0", optional = true }
 obj-rs = { version = "0.7.1", optional = true }
 
 # physics
-rapier3d = { version = "0.22", features = ["simd-stable"], optional = true }
+rapier3d = { version = "0.21", features = ["simd-stable"], optional = true }
 
 # egui
-egui = { path = "dependencies/egui/crates/egui", optional = true }
-egui-wgpu = { path = "dependencies/egui/crates/egui-wgpu", optional = true }
-egui-winit = { path = "dependencies/egui/crates/egui-winit", optional = true }
+egui = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
+egui-wgpu = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
+egui-winit = { git = "https://github.com/emilk/egui.git", rev = "89b6055f9cc8954e0a27d17bae2d10f089592330", optional = true }
 
 # Animation examples
 [[example]]
