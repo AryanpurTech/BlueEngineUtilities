@@ -10,16 +10,22 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["animation", "gltf", "physics", "egui"]
+default = ["u16", "debug"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 obj = ["dep:obj-rs"]
 physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
+# pass blue engine's u16 feature
+u16 = ["blue_engine/u16"]
+# pass blue engine's u32 feature
+u32 = ["blue_engine/u32"]
+# pass blue engine's debug feature
+debug = ["blue_engine/debug"]
 
 [dependencies]
-blue_engine = { version = ">=0.5.20" }
-#blue_engine = { path = "../Blue Engine" }
+# blue_engine = { path = "../Blue Engine", default-features = false }
+blue_engine = { version = ">=0.5.20", default-features = false }
 eyre = "0.6.3"
 
 # Animation

@@ -1,5 +1,8 @@
 use crate::FlyCamera;
-use blue_engine::{glm as nalgebra_glm, winit, CameraContainer, InputHelper, ObjectStorage};
+use blue_engine::{
+    glm as nalgebra_glm, winit, CameraContainer, ElementState, InputHelper, MouseButton,
+    ObjectStorage,
+};
 
 impl FlyCamera {
     pub fn new(camera: &mut CameraContainer) -> Self {
