@@ -180,7 +180,7 @@ impl blue_engine::Signal for Physics {
 
                 object
                     .unwrap()
-                    .set_position(position.x, position.y, position.z);
+                    .set_position([position.x, position.y, position.z]);
             }
         }
     }

@@ -46,9 +46,9 @@ pub fn load_gltf(
 
             for i in 0..positions.len() {
                 verticies.push(Vertex {
-                    position: positions[i],
-                    uv: [0f32, 0f32],
-                    normal: normals[i],
+                    position: positions[i].into(),
+                    uv: [0f32, 0f32].into(),
+                    normal: normals[i].into(),
                 })
             }
 
@@ -82,7 +82,7 @@ pub fn load_gltf(
             indicies,
             ObjectSettings::default(),
             renderer,
-        )?;
+        );
     }
 
     Ok(())

@@ -82,8 +82,10 @@ impl Raycast {
             1f32 / self.current_ray.z,
         );
 
-        let min_corner = min_corner - camera.position;
-        let max_corner = max_corner - camera.position;
+        let camera_pos =
+            blue_engine::glm::vec3(camera.position.x, camera.position.y, camera.position.z);
+        let min_corner = min_corner - camera_pos;
+        let max_corner = max_corner - camera_pos;
 
         // calculate the minimum and maximum intersection distances for each axis
         let tmin = glm::vec3(

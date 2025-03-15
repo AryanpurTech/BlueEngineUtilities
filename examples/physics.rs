@@ -27,19 +27,15 @@ fn main() -> eyre::Result<()> {
         let mut physics = Physics::new();
         let fly_camera = FlyCamera::new(&mut engine.camera);
 
-        cube("floor", &mut engine.renderer, &mut engine.objects)?;
+        cube("floor", &mut engine.renderer, &mut engine.objects);
         engine
             .objects
             .get_mut("floor")
             .unwrap()
-            .set_scale(2f32, 0.3f32, 2f32);
-        engine
-            .objects
-            .get_mut("floor")
-            .unwrap()
-            .set_position(0f32, -1f32, 0f32);
+            .set_scale([2f32, 0.3f32, 2f32])
+            .set_position([0f32, 1f32, 0f32]);
         let collider = ColliderBuilder::cuboid(2.0, 0.3f32, 2.0)
-            .translation([0f32, -1f32, 0f32].into())
+            .translation([0f32, 1f32, 0f32].into())
             .build();
         physics.insert_collider("floor", collider);
 
@@ -48,19 +44,15 @@ fn main() -> eyre::Result<()> {
             (18, 46, 1f32),
             &mut engine.renderer,
             &mut engine.objects,
-        )?;
+        );
         engine
             .objects
             .get_mut("ball")
             .unwrap()
-            .set_color(0.3, 0.3, 0.6, 1f32);
-        engine
-            .objects
-            .get_mut("ball")
-            .unwrap()
-            .set_position(0f32, 10f32, 0f32);
+            .set_color(0.3, 0.3, 0.6, 1f32)
+            .set_position([0f32, -10f32, 0f32]);
         let rigid_body = RigidBodyBuilder::dynamic()
-            .translation(vector![0.0, 10.0, 0.0])
+            .translation(vector![0.0, -10f32, 0.0])
             .build();
         let collider = ColliderBuilder::ball(1f32).restitution(0.7).build();
         let ball_body_handle = physics.insert_rigid_body("ball", rigid_body);
@@ -71,7 +63,7 @@ fn main() -> eyre::Result<()> {
             (18, 46, 1f32),
             &mut engine.renderer,
             &mut engine.objects,
-        )?;
+        );
         engine
             .objects
             .get_mut("ball2")
@@ -81,7 +73,7 @@ fn main() -> eyre::Result<()> {
             .objects
             .get_mut("ball2")
             .unwrap()
-            .set_position(0.05f32, 13f32, 0.0f32);
+            .set_position([0.05f32, 13f32, 0.0f32]);
         let rigid_body = RigidBodyBuilder::dynamic()
             .translation(vector![0.05, 13.0, 0.0])
             .build();
@@ -102,10 +94,9 @@ fn main() -> eyre::Result<()> {
                 &window.as_ref().unwrap().inner_size(),
             );
 
-            let ray = Ray::new(
-                camera.get("main").unwrap().position.into(),
-                raycast.get_current_ray(),
-            );
+            let camera_pos = camera.get("main").unwrap().position;
+            let camera_pos = blue_engine::glm::vec3(camera_pos.x, camera_pos.y, camera_pos.z);
+            let ray = Ray::new(camera_pos.into(), raycast.get_current_ray());
             let max_toi = 4.0;
             let solid = true;
             let filter = QueryFilter::default();
