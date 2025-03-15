@@ -26,8 +26,7 @@ fn main() {
         ObjectSettings::default(),
         &mut engine.renderer,
         &mut engine.objects,
-    )
-    .unwrap();
+    );
 
     // Start the egui context
     let gui_context = egui::EGUI::new();
