@@ -19,7 +19,7 @@ fn main() -> eyre::Result<()> {
         blue_engine::header::TextureData::Bytes(texture_data),
         blue_engine::header::TextureMode::Clamp,
     )?;
-    cube("floor", &mut engine.renderer, &mut engine.objects)?;
+    cube("floor", &mut engine.renderer, &mut engine.objects);
     engine
         .objects
         .get_mut("floor")

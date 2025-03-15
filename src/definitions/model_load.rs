@@ -1,6 +1,7 @@
+#![cfg(feature = "gltf")]
+
 use blue_engine::{ObjectSettings, ObjectStorage, Renderer, StringBuffer, Vertex};
 
-#[cfg(feature = "gltf")]
 pub fn load_gltf(
     name: Option<impl StringBuffer>,
     path: &std::path::Path,

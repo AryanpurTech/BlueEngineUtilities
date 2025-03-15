@@ -1,3 +1,5 @@
+#![cfg(feature = "egui")]
+
 use blue_engine::{
     CameraContainer, CommandEncoder, DEPTH_FORMAT, InputHelper, ObjectStorage, Renderer,
     TextureView, Window as Win, wgpu,

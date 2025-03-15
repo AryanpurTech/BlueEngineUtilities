@@ -1,4 +1,6 @@
-use blue_engine::{imports::glm, Camera};
+#![cfg(feature = "physics")]
+
+use blue_engine::{Camera, imports::glm};
 
 pub struct Raycast {
     current_ray: glm::Vec3,

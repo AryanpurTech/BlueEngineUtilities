@@ -1,6 +1,8 @@
+#![cfg(feature = "animation")]
+
 use crate::AnimationKeyframe;
 use blue_engine::{ObjectStorage, PhysicalSize, RotateAxis};
-use keyframe::{functions::Linear, AnimationSequence, AnimationSequenceError, Keyframe};
+use keyframe::{AnimationSequence, AnimationSequenceError, Keyframe, functions::Linear};
 
 #[derive(Clone)]
 pub struct Animation {

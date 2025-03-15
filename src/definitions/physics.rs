@@ -4,7 +4,9 @@
  * The license is same as the one on the root.
 */
 
-use blue_engine::{glm, StringBuffer};
+#![cfg(feature = "physics")]
+
+use blue_engine::{StringBuffer, glm};
 use rapier3d::prelude::*;
 use std::collections::HashMap;
 
