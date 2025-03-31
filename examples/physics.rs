@@ -6,7 +6,7 @@
 
 #[cfg(feature = "physics")]
 use blue_engine::{
-    header::{Engine, WindowDescriptor},
+    Engine, WindowDescriptor,
     primitive_shapes::{cube, uv_sphere},
 };
 #[cfg(feature = "physics")]

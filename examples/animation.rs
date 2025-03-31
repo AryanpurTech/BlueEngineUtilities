@@ -1,8 +1,5 @@
 #[cfg(feature = "animation")]
-use blue_engine::{
-    header::{Engine, WindowDescriptor},
-    primitive_shapes::cube,
-};
+use blue_engine::{Engine, WindowDescriptor, primitive_shapes::cube};
 #[cfg(feature = "animation")]
 use blue_engine_utilities::{AnimationKeyframe, animation::Animation};
 

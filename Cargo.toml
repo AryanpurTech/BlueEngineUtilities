@@ -1,6 +1,6 @@
 [package]
 name = "blue_engine_utilities"
-version = "0.6.5"
+version = "0.7.0"
 edition = "2024"
 authors = ["Elham Aryanpur <elhamaryanpur5@gmail.com>"]
 description = "Utilities for Blue Engine"
@@ -10,14 +10,12 @@ categories = ["game-development", "graphics", "rendering"]
 license = "Apache-2.0"
 
 [features]
-default = ["u16", "debug"]
+default = ["debug"]
 animation = ["dep:keyframe_derive", "dep:keyframe"]
 gltf = ["dep:gltf"]
 obj = ["dep:obj-rs"]
 physics = ["dep:rapier3d"]
 egui = ["dep:egui", "dep:egui-winit", "dep:egui-wgpu"]
-# pass blue engine's u16 feature
-u16 = ["blue_engine/u16"]
 # pass blue engine's u32 feature
 u32 = ["blue_engine/u32"]
 # pass blue engine's debug feature
@@ -25,16 +23,16 @@ debug = ["blue_engine/debug"]
 
 [dependencies]
 # blue_engine = { path = "../Blue Engine", default-features = false }
-blue_engine = { version = "0.6.5" }
-eyre = "0.6.3"
+blue_engine = { version = "0.7.0" }
+eyre = "0.6.12"
 
 # Animation
 keyframe = { version = "1.1.1", optional = true }
 keyframe_derive = { version = "1.0.0", optional = true }
 
 # model loading
-gltf = { version = "1.4.0", optional = true }
-obj-rs = { version = "0.7.1", optional = true }
+gltf = { version = "1.4.1", optional = true }
+obj-rs = { version = "0.7.4", optional = true }
 
 # physics
 rapier3d = { version = "0.23.1", features = ["simd-stable"], optional = true }

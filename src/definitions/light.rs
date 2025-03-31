@@ -1,14 +1,14 @@
-use blue_engine::{ObjectStorage, Pod, Zeroable, uniform_type};
+use blue_engine::{Matrix4, ObjectStorage, Pod, Vector3, Vector4, Zeroable};
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct LightUniforms {
-    light_color: uniform_type::Array4,     // 4 units
-    light_position: uniform_type::Array3,  // 3 units
-    ambient_strength: f32,                 // 1 unit
-    camera_position: uniform_type::Array3, // 3 units
-    specular_strength: f32,                // 1 unit
-    inverse_model: uniform_type::Matrix,   // 4x4 units
+    light_color: Vector4,     // 4 units
+    light_position: Vector3,  // 3 units
+    ambient_strength: f32,    // 1 unit
+    camera_position: Vector3, // 3 units
+    specular_strength: f32,   // 1 unit
+    inverse_model: Matrix4,   // 4x4 units
 }
 unsafe impl Pod for LightUniforms {}
 unsafe impl Zeroable for LightUniforms {}
@@ -16,9 +16,7 @@ unsafe impl Zeroable for LightUniforms {}
 impl crate::LightManager {
     pub fn new() -> Self {
         Self {
-            ambient_color: uniform_type::Array4 {
-                data: [1f32, 1f32, 1f32, 1f32], //0.051f32, 0.533f32, 0.898f32
-            },
+            ambient_color: Vector4::ONE,
             ambient_strength: 0f32,
             affected_objects: Vec::new(),
             light_objects: std::collections::BTreeMap::new(),
@@ -43,12 +41,7 @@ impl crate::LightManager {
                 );
             } else {
                 let result = i.color * self.ambient_color;
-                i.set_color(
-                    result.data[0],
-                    result.data[1],
-                    result.data[2],
-                    result.data[3],
-                );
+                i.set_color(result.x, result.y, result.z, result.w);
 
                 let pos = *self.light_objects.get(&light_keys[0]).unwrap();
                 let camera_pos = camera.get("main").unwrap().position;
@@ -56,14 +49,10 @@ impl crate::LightManager {
                     "light_uniform_buffer",
                     LightUniforms {
                         light_color: pos.1,
-                        light_position: uniform_type::Array3 {
-                            data: [pos.0[0], pos.0[1], pos.0[2]],
-                        },
+                        light_position: Vector3::new(pos.0[0], pos.0[1], pos.0[2]),
                         ambient_strength: self.ambient_strength,
                         inverse_model: i.inverse_transformation_matrix,
-                        camera_position: uniform_type::Array3 {
-                            data: [camera_pos.x, camera_pos.y, camera_pos.z],
-                        },
+                        camera_position: Vector3::new(camera_pos.x, camera_pos.y, camera_pos.z),
                         specular_strength: 0.8,
                     },
                 );
@@ -105,15 +94,8 @@ var<uniform> camera_uniform: CameraUniforms;"#,
     }
 
     pub fn set_object_as_light(&mut self, object: String) {
-        self.light_objects.insert(
-            object,
-            (
-                [0f32, 0f32, 0f32],
-                uniform_type::Array4 {
-                    data: [0f32, 0f32, 0f32, 0f32],
-                },
-            ),
-        );
+        self.light_objects
+            .insert(object, ([0f32, 0f32, 0f32], Vector4::ZERO));
     }
 }
 

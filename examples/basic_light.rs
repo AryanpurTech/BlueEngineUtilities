@@ -1,8 +1,5 @@
 #[cfg(feature = "gltf")]
-use blue_engine::{
-    header::{Engine, WindowDescriptor},
-    primitive_shapes::uv_sphere,
-};
+use blue_engine::{Engine, WindowDescriptor, primitive_shapes::uv_sphere};
 #[cfg(feature = "gltf")]
 use blue_engine_utilities::{LightManager, model_load::load_gltf};
 

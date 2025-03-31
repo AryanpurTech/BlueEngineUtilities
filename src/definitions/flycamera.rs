@@ -1,5 +1,5 @@
 use crate::FlyCamera;
-use blue_engine::{CameraContainer, InputHelper, ObjectStorage, glm as nalgebra_glm, winit};
+use blue_engine::{CameraContainer, InputHelper, ObjectStorage, Vector3, winit};
 
 impl FlyCamera {
     pub fn new(camera: &mut CameraContainer) -> Self {
@@ -22,7 +22,7 @@ impl FlyCamera {
         }
     }
 
-    fn update_vertices(camera: &mut CameraContainer) -> nalgebra_glm::Vec3 {
+    fn update_vertices(camera: &mut CameraContainer) -> Vector3 {
         let camera_right = camera
             .get("main")
             .unwrap()
@@ -35,7 +35,7 @@ impl FlyCamera {
             .data;
         let up = up.as_slice();
         camera.set_up(up[0], up[1], up[2]).unwrap(); */
-        blue_engine::glm::vec3(camera_right.x, camera_right.y, camera_right.z)
+        Vector3::new(camera_right.x, camera_right.y, camera_right.z)
     }
 
     // purely for testing plugin system
@@ -85,14 +85,13 @@ impl blue_engine::Signal for FlyCamera {
 
                 self.pitch = self.pitch.clamp(-89f32, 89f32);
 
-                let direction = nalgebra_glm::vec3(
+                let direction = Vector3::new(
                     self.yaw.to_radians().cos() * self.pitch.to_radians().cos(),
                     (self.pitch * -1f32).to_radians().sin(),
                     self.yaw.to_radians().sin() * self.pitch.to_radians().cos(),
                 );
-                let direction = direction.normalize().data;
-                let direction = direction.as_slice();
-                camera.set_target([direction[0], direction[1], direction[2]]);
+                let direction = direction.normalize();
+                camera.set_target([direction.x, direction.y, direction.z]);
                 self.camera_right = Self::update_vertices(camera);
             }
         }
@@ -130,7 +129,7 @@ impl blue_engine::Signal for FlyCamera {
         // A
         if input.key_held(blue_engine::KeyCode::KeyA) {
             let camera_pos = camera.get("main").unwrap().position;
-            let camera_pos = blue_engine::glm::vec3(camera_pos.x, camera_pos.y, camera_pos.z);
+            let camera_pos = Vector3::new(camera_pos.x, camera_pos.y, camera_pos.z);
             let result = camera_pos - (self.camera_right * camera_speed);
 
             camera.set_position([result.x, result.y, result.z]);
@@ -138,7 +137,7 @@ impl blue_engine::Signal for FlyCamera {
         // D
         if input.key_held(blue_engine::KeyCode::KeyD) {
             let camera_pos = camera.get("main").unwrap().position;
-            let camera_pos = blue_engine::glm::vec3(camera_pos.x, camera_pos.y, camera_pos.z);
+            let camera_pos = Vector3::new(camera_pos.x, camera_pos.y, camera_pos.z);
             let result = camera_pos + (self.camera_right * camera_speed);
 
             camera.set_position([result.x, result.y, result.z]);

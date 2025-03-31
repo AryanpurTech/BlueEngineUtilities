@@ -1,5 +1,5 @@
 #[cfg(feature = "gltf")]
-use blue_engine::header::{Engine, WindowDescriptor};
+use blue_engine::{Engine, WindowDescriptor};
 #[cfg(feature = "gltf")]
 use blue_engine_utilities::{FlyCamera, model_load::load_gltf};
 

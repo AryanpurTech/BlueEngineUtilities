@@ -1,8 +1,4 @@
-use blue_engine::{
-    header::{Engine, WindowDescriptor},
-    primitive_shapes::cube,
-};
-
+use blue_engine::{Engine, WindowDescriptor, primitive_shapes::cube};
 use blue_engine_utilities::FlyCamera;
 
 fn main() -> eyre::Result<()> {
@@ -16,8 +12,8 @@ fn main() -> eyre::Result<()> {
     let texture_data = include_bytes!("../resources/BlueLogoDiscord.png").to_vec();
     let texture = engine.renderer.build_texture(
         "crate texture",
-        blue_engine::header::TextureData::Bytes(texture_data),
-        blue_engine::header::TextureMode::Clamp,
+        blue_engine::TextureData::Bytes(texture_data),
+        blue_engine::TextureMode::Clamp,
     )?;
     cube("floor", &mut engine.renderer, &mut engine.objects);
     engine

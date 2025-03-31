@@ -1,9 +1,5 @@
 #[cfg(feature = "physics")]
-use blue_engine::{
-    header::{Engine, WindowDescriptor},
-    imports::glm,
-    primitive_shapes::cube,
-};
+use blue_engine::{Engine, WindowDescriptor, imports::glm, primitive_shapes::cube};
 #[cfg(feature = "physics")]
 use blue_engine_utilities::{FlyCamera, raycast::Raycast};
 

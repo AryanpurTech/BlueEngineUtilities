@@ -332,9 +332,9 @@ dependencies = [
 
 [[package]]
 name = "blue_engine"
-version = "0.6.5"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ce4f42feb286021c1481b3b22ffa6b26d8072d28f56bb1fc898b3742dc4c262a"
+checksum = "1f618a2f7bb8cce959e5ae37a0c8458464e4d1c82ad35dd521b9414a7068f745"
 dependencies = [
  "blue_engine_core",
  "blue_engine_dynamic",
@@ -342,15 +342,15 @@ dependencies = [
 
 [[package]]
 name = "blue_engine_core"
-version = "0.6.5"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91b19075a86cbddc80275bab8f131f5c3fca21a4ec6f100f64637213bc18f60e"
+checksum = "45baa33b4181e0993a4ea441a7c3c815074daa1f82e063afc6d0d2af2121d480"
 dependencies = [
  "bytemuck",
  "downcast",
  "env_logger",
+ "glam",
  "image",
- "nalgebra-glm",
  "pollster",
  "thiserror 2.0.9",
  "wgpu",
@@ -359,16 +359,16 @@ dependencies = [
 
 [[package]]
 name = "blue_engine_dynamic"
-version = "0.6.5"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86550ddc6fb6455656ebe19545929b0e458e17a8a764d9c9a636d0c20e7f8665"
+checksum = "8c4e111620ed6065959985e399e31349e583abf62d902fbd977d670d849c738d"
 dependencies = [
  "blue_engine_core",
 ]
 
 [[package]]
 name = "blue_engine_utilities"
-version = "0.6.5"
+version = "0.7.0"
 dependencies = [
  "blue_engine",
  "egui",
@@ -995,6 +995,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "glam"
+version = "0.30.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf3aa70d918d2b234126ff4f850f628f172542bf0603ded26b8ee36e5e22d5f9"
+dependencies = [
+ "bytemuck",
+ "serde",
+]
+
+[[package]]
 name = "glow"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1585,18 +1595,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "nalgebra-glm"
-version = "0.19.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e441f43bccdf40cb6bd4294321e6983c5bc7b9886112d19fd4c9813976b117e4"
-dependencies = [
- "approx",
- "nalgebra",
- "num-traits",
- "simba",
-]
-
-[[package]]
 name = "nalgebra-macros"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1757,9 +1755,9 @@ dependencies = [
 
 [[package]]
 name = "obj-rs"
-version = "0.7.2"
+version = "0.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9d38d5eb90bef5bfff1f6ed24018460588489652b7a8937b7d9b57b4db5cf73"
+checksum = "8247fd8f66340ad9c969f96e63a80a2f74b04e5403d92584b75e046006f4c7e1"
 dependencies = [
  "num-traits",
  "serde",
@@ -3278,9 +3276,9 @@ checksum = "53a85b86a771b1c87058196170769dd264f66c0782acf1ae6cc51bfd64b39082"
 
 [[package]]
 name = "wgpu"
-version = "24.0.1"
+version = "24.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47f55718f85c2fa756edffa0e7f0e0a60aba463d1362b57e23123c58f035e4b6"
+checksum = "35904fb00ba2d2e0a4d002fcbbb6e1b89b574d272a50e5fc95f6e81cf281c245"
 dependencies = [
  "arrayvec",
  "bitflags 2.9.0",

@@ -14,10 +14,7 @@ use blue_engine_utilities::egui::egui as gui;
 
 // Basic imports
 #[cfg(feature = "egui")]
-use blue_engine::{
-    header::{Engine, ObjectSettings},
-    primitive_shapes::triangle,
-};
+use blue_engine::{Engine, ObjectSettings, primitive_shapes::triangle};
 
 fn main() {
     #[cfg(feature = "egui")]
